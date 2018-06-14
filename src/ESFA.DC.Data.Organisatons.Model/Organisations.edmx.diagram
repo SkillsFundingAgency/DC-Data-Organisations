@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0c4f5fa61a64483689cb07c9305e9be9" Name="Diagram1">
+        <EntityTypeShape EntityType="Organisations.Model.MasterOrganisation" Width="1.5" PointX="0.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_DataGeneration" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.ORG_Details" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_HMPP_Postcode" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_HMPP_UOP" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_PartnerUKPRN" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_UKPRN_UPIN" Width="1.5" PointX="3" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.Org_Version" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Organisations.Model.SFA_PostcodeDisadvantage" Width="1.5" PointX="3" PointY="31.5" IsExpanded="true" />
+        <AssociationConnector Association="Organisations.Model.FK_ORG_Details_Funding" ManuallyRouted="false" />
+        <AssociationConnector Association="Organisations.Model.FK_ORG_Details_UKPRN" ManuallyRouted="false" />
+        <AssociationConnector Association="Organisations.Model.FK_Org_HMPP_Postcode" ManuallyRouted="false" />
+        <AssociationConnector Association="Organisations.Model.FK_Org_HMPP_UOP" ManuallyRouted="false" />
+        <AssociationConnector Association="Organisations.Model.FK_Org_PartnerUKPRN" ManuallyRouted="false" />
+        <AssociationConnector Association="Organisations.Model.FK_Org_UKPRN_UPIN" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

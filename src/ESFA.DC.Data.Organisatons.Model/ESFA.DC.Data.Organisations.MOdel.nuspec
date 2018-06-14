@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ESFA.DC.Data.Organisations.Model</id>
+    <version>0.1.0</version>
+    <authors>DC</authors>
+    <owners>ESFA</owners>
+    <licenseUrl>https://github.com/SkillsFundingAgency/DC-Data-Organisations/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SkillsFundingAgency/DC-Data-Organisations</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Organisations Entity Framework Model Project.</description>
+    <copyright>Copyright 2018</copyright>
+    <tags>ILR Organisations Data Database Model</tags>
+  </metadata>
+</package>
