@@ -9,11 +9,11 @@
 
 namespace ESFA.DC.Data.Organisatons.Model
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class Organisations : DbContext
+    using ESFA.DC.Data.Organisatons.Model.Interface;
+
+    public partial class Organisations : DbContext, IOrganisations
     {
         public Organisations()
             : base("name=Organisations")
