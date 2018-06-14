@@ -17,17 +17,15 @@ namespace ESFA.DC.Data.Organisatons.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MasterOrganisation()
         {
-            this.SFA_PostcodeDisadvantage = new HashSet<SFA_PostcodeDisadvantage>();
             this.Org_HMPP_Postcode = new HashSet<Org_HMPP_Postcode>();
             this.Org_HMPP_UOP = new HashSet<Org_HMPP_UOP>();
             this.Org_PartnerUKPRN = new HashSet<Org_PartnerUKPRN>();
             this.Org_UKPRN_UPIN = new HashSet<Org_UKPRN_UPIN>();
+            this.Org_Funding = new HashSet<Org_Funding>();
         }
     
         public long UKPRN { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SFA_PostcodeDisadvantage> SFA_PostcodeDisadvantage { get; set; }
         public virtual ORG_Details ORG_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Org_HMPP_Postcode> Org_HMPP_Postcode { get; set; }
@@ -37,5 +35,7 @@ namespace ESFA.DC.Data.Organisatons.Model
         public virtual ICollection<Org_PartnerUKPRN> Org_PartnerUKPRN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Org_UKPRN_UPIN> Org_UKPRN_UPIN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Org_Funding> Org_Funding { get; set; }
     }
 }

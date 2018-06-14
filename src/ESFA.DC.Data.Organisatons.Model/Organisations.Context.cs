@@ -9,11 +9,11 @@
 
 namespace ESFA.DC.Data.Organisatons.Model
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using ESFA.DC.Data.Organisatons.Model.Interface;
-
-    public partial class Organisations : DbContext, IOrganisations
+    
+    public partial class Organisations : DbContext
     {
         public Organisations()
             : base("name=Organisations")
@@ -33,6 +33,6 @@ namespace ESFA.DC.Data.Organisatons.Model
         public virtual DbSet<Org_PartnerUKPRN> Org_PartnerUKPRN { get; set; }
         public virtual DbSet<Org_UKPRN_UPIN> Org_UKPRN_UPIN { get; set; }
         public virtual DbSet<Org_Version> Org_Version { get; set; }
-        public virtual DbSet<SFA_PostcodeDisadvantage> SFA_PostcodeDisadvantage { get; set; }
+        public virtual DbSet<Org_Funding> Org_Funding { get; set; }
     }
 }

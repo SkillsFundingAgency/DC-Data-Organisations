@@ -12,7 +12,7 @@ namespace ESFA.DC.Data.Organisatons.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class SFA_PostcodeDisadvantage
+    public partial class Org_Funding
     {
         public long UKPRN { get; set; }
         public string FundModelName { get; set; }

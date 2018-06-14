@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[SFA_PostcodeDisadvantage]
+﻿CREATE TABLE [dbo].[Org_Funding]
 (
 	[UKPRN] BIGINT NOT NULL,
 	[FundModelName] NVARCHAR(250) NOT NULL,
@@ -13,6 +13,6 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    CONSTRAINT [FK_ORG_Details_Funding] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN]),
+    CONSTRAINT [FK_ORG_Funding] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN]),
     PRIMARY KEY ([UKPRN] ASC, [FundingFactorType] ASC, [FundingFactor] ASC, [EffectiveFrom] ASC)
 )

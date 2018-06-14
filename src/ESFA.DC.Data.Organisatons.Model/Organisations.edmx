@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Organisations.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Organisations.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MasterOrganisations">
           <Key>
             <PropertyRef Name="UKPRN" />
@@ -91,6 +91,27 @@
           <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="HESAProvider" Type="bit" />
         </EntityType>
+        <EntityType Name="Org_Funding">
+          <Key>
+            <PropertyRef Name="UKPRN" />
+            <PropertyRef Name="FundingFactor" />
+            <PropertyRef Name="FundingFactorType" />
+            <PropertyRef Name="EffectiveFrom" />
+          </Key>
+          <Property Name="UKPRN" Type="bigint" Nullable="false" />
+          <Property Name="FundModelName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FundingFactor" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FundingFactorType" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FundingFactorValue" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EffectiveFrom" Type="date" Nullable="false" />
+          <Property Name="EffectiveTo" Type="date" />
+          <Property Name="CODACode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Created_On" Type="datetime" Nullable="false" />
+          <Property Name="Created_By" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Modified_On" Type="datetime" Nullable="false" />
+          <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Org_HMPP_Postcode">
           <Key>
             <PropertyRef Name="UKPRN" />
@@ -173,39 +194,6 @@
           <Property Name="Modified_On" Type="datetime" Nullable="false" />
           <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="SFA_PostcodeDisadvantage">
-          <Key>
-            <PropertyRef Name="UKPRN" />
-            <PropertyRef Name="FundingFactor" />
-            <PropertyRef Name="FundingFactorType" />
-            <PropertyRef Name="EffectiveFrom" />
-          </Key>
-          <Property Name="UKPRN" Type="bigint" Nullable="false" />
-          <Property Name="FundModelName" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="FundingFactor" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="FundingFactorType" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="FundingFactorValue" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="EffectiveFrom" Type="date" Nullable="false" />
-          <Property Name="EffectiveTo" Type="date" />
-          <Property Name="CODACode" Type="nvarchar" MaxLength="10" />
-          <Property Name="Comment" Type="nvarchar(max)" />
-          <Property Name="Created_On" Type="datetime" Nullable="false" />
-          <Property Name="Created_By" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Modified_On" Type="datetime" Nullable="false" />
-          <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_ORG_Details_Funding">
-          <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
-          <End Role="SFA_PostcodeDisadvantage" Type="Self.SFA_PostcodeDisadvantage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MasterOrganisations">
-              <PropertyRef Name="UKPRN" />
-            </Principal>
-            <Dependent Role="SFA_PostcodeDisadvantage">
-              <PropertyRef Name="UKPRN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ORG_Details_UKPRN">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
           <End Role="ORG_Details" Type="Self.ORG_Details" Multiplicity="0..1" />
@@ -214,6 +202,18 @@
               <PropertyRef Name="UKPRN" />
             </Principal>
             <Dependent Role="ORG_Details">
+              <PropertyRef Name="UKPRN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ORG_Funding">
+          <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
+          <End Role="Org_Funding" Type="Self.Org_Funding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterOrganisations">
+              <PropertyRef Name="UKPRN" />
+            </Principal>
+            <Dependent Role="Org_Funding">
               <PropertyRef Name="UKPRN" />
             </Dependent>
           </ReferentialConstraint>
@@ -270,19 +270,19 @@
           <EntitySet Name="MasterOrganisations" EntityType="Self.MasterOrganisations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_DataGeneration" EntityType="Self.Org_DataGeneration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ORG_Details" EntityType="Self.ORG_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Org_Funding" EntityType="Self.Org_Funding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_HMPP_Postcode" EntityType="Self.Org_HMPP_Postcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_HMPP_UOP" EntityType="Self.Org_HMPP_UOP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_PartnerUKPRN" EntityType="Self.Org_PartnerUKPRN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_UKPRN_UPIN" EntityType="Self.Org_UKPRN_UPIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_Version" EntityType="Self.Org_Version" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SFA_PostcodeDisadvantage" EntityType="Self.SFA_PostcodeDisadvantage" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ORG_Details_Funding" Association="Self.FK_ORG_Details_Funding">
-            <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
-            <End Role="SFA_PostcodeDisadvantage" EntitySet="SFA_PostcodeDisadvantage" />
-          </AssociationSet>
           <AssociationSet Name="FK_ORG_Details_UKPRN" Association="Self.FK_ORG_Details_UKPRN">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="ORG_Details" EntitySet="ORG_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ORG_Funding" Association="Self.FK_ORG_Funding">
+            <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
+            <End Role="Org_Funding" EntitySet="Org_Funding" />
           </AssociationSet>
           <AssociationSet Name="FK_Org_HMPP_Postcode" Association="Self.FK_Org_HMPP_Postcode">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
@@ -301,8 +301,7 @@
             <End Role="Org_UKPRN_UPIN" EntitySet="Org_UKPRN_UPIN" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Organisations.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -311,12 +310,12 @@
             <PropertyRef Name="UKPRN" />
           </Key>
           <Property Name="UKPRN" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="SFA_PostcodeDisadvantage" Relationship="Self.FK_ORG_Details_Funding" FromRole="MasterOrganisations" ToRole="SFA_PostcodeDisadvantage" />
           <NavigationProperty Name="ORG_Details" Relationship="Self.FK_ORG_Details_UKPRN" FromRole="MasterOrganisations" ToRole="ORG_Details" />
           <NavigationProperty Name="Org_HMPP_Postcode" Relationship="Self.FK_Org_HMPP_Postcode" FromRole="MasterOrganisations" ToRole="Org_HMPP_Postcode" />
           <NavigationProperty Name="Org_HMPP_UOP" Relationship="Self.FK_Org_HMPP_UOP" FromRole="MasterOrganisations" ToRole="Org_HMPP_UOP" />
           <NavigationProperty Name="Org_PartnerUKPRN" Relationship="Self.FK_Org_PartnerUKPRN" FromRole="MasterOrganisations" ToRole="Org_PartnerUKPRN" />
           <NavigationProperty Name="Org_UKPRN_UPIN" Relationship="Self.FK_Org_UKPRN_UPIN" FromRole="MasterOrganisations" ToRole="Org_UKPRN_UPIN" />
+          <NavigationProperty Name="Org_Funding" Relationship="Organisations.Model.FK_ORG_Funding" FromRole="MasterOrganisation" ToRole="Org_Funding" />
         </EntityType>
         <EntityType Name="Org_DataGeneration">
           <Key>
@@ -485,40 +484,6 @@
           <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="SFA_PostcodeDisadvantage">
-          <Key>
-            <PropertyRef Name="UKPRN" />
-            <PropertyRef Name="FundingFactor" />
-            <PropertyRef Name="FundingFactorType" />
-            <PropertyRef Name="EffectiveFrom" />
-          </Key>
-          <Property Name="UKPRN" Type="Int64" Nullable="false" />
-          <Property Name="FundModelName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FundingFactor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FundingFactorType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FundingFactorValue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EffectiveFrom" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EffectiveTo" Type="DateTime" Precision="0" />
-          <Property Name="CODACode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Created_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="MasterOrganisation" Relationship="Self.FK_ORG_Details_Funding" FromRole="SFA_PostcodeDisadvantage" ToRole="MasterOrganisations" />
-        </EntityType>
-        <Association Name="FK_ORG_Details_Funding">
-          <End Role="MasterOrganisations" Type="Self.MasterOrganisation" Multiplicity="1" />
-          <End Role="SFA_PostcodeDisadvantage" Type="Self.SFA_PostcodeDisadvantage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MasterOrganisations">
-              <PropertyRef Name="UKPRN" />
-            </Principal>
-            <Dependent Role="SFA_PostcodeDisadvantage">
-              <PropertyRef Name="UKPRN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ORG_Details_UKPRN">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisation" Multiplicity="1" />
           <End Role="ORG_Details" Type="Self.ORG_Details" Multiplicity="0..1" />
@@ -588,11 +553,6 @@
           <EntitySet Name="Org_PartnerUKPRN" EntityType="Self.Org_PartnerUKPRN" />
           <EntitySet Name="Org_UKPRN_UPIN" EntityType="Self.Org_UKPRN_UPIN" />
           <EntitySet Name="Org_Version" EntityType="Self.Org_Version" />
-          <EntitySet Name="SFA_PostcodeDisadvantage" EntityType="Self.SFA_PostcodeDisadvantage" />
-          <AssociationSet Name="FK_ORG_Details_Funding" Association="Self.FK_ORG_Details_Funding">
-            <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
-            <End Role="SFA_PostcodeDisadvantage" EntitySet="SFA_PostcodeDisadvantage" />
-          </AssociationSet>
           <AssociationSet Name="FK_ORG_Details_UKPRN" Association="Self.FK_ORG_Details_UKPRN">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="ORG_Details" EntitySet="ORG_Details" />
@@ -613,7 +573,46 @@
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="Org_UKPRN_UPIN" EntitySet="Org_UKPRN_UPIN" />
           </AssociationSet>
+          <EntitySet Name="Org_Funding" EntityType="Organisations.Model.Org_Funding" />
+          <AssociationSet Name="FK_ORG_Funding" Association="Organisations.Model.FK_ORG_Funding">
+            <End Role="MasterOrganisation" EntitySet="MasterOrganisations" />
+            <End Role="Org_Funding" EntitySet="Org_Funding" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Org_Funding">
+          <Key>
+            <PropertyRef Name="UKPRN" />
+            <PropertyRef Name="FundingFactor" />
+            <PropertyRef Name="FundingFactorType" />
+            <PropertyRef Name="EffectiveFrom" />
+          </Key>
+          <Property Name="UKPRN" Type="Int64" Nullable="false" />
+          <Property Name="FundModelName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FundingFactor" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FundingFactorType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FundingFactorValue" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EffectiveFrom" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EffectiveTo" Type="DateTime" Precision="0" />
+          <Property Name="CODACode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MasterOrganisation" Relationship="Organisations.Model.FK_ORG_Funding" FromRole="Org_Funding" ToRole="MasterOrganisation" />
+        </EntityType>
+        <Association Name="FK_ORG_Funding">
+          <End Type="Organisations.Model.MasterOrganisation" Role="MasterOrganisation" Multiplicity="1" />
+          <End Type="Organisations.Model.Org_Funding" Role="Org_Funding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterOrganisation">
+              <PropertyRef Name="UKPRN" />
+            </Principal>
+            <Dependent Role="Org_Funding">
+              <PropertyRef Name="UKPRN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -787,22 +786,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SFA_PostcodeDisadvantage">
-            <EntityTypeMapping TypeName="Organisations.Model.SFA_PostcodeDisadvantage">
-              <MappingFragment StoreEntitySet="SFA_PostcodeDisadvantage">
-                <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
-                <ScalarProperty Name="FundModelName" ColumnName="FundModelName" />
-                <ScalarProperty Name="FundingFactor" ColumnName="FundingFactor" />
-                <ScalarProperty Name="FundingFactorType" ColumnName="FundingFactorType" />
-                <ScalarProperty Name="FundingFactorValue" ColumnName="FundingFactorValue" />
-                <ScalarProperty Name="EffectiveFrom" ColumnName="EffectiveFrom" />
-                <ScalarProperty Name="EffectiveTo" ColumnName="EffectiveTo" />
-                <ScalarProperty Name="CODACode" ColumnName="CODACode" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Modified_On" ColumnName="Modified_On" />
+          <EntitySetMapping Name="Org_Funding">
+            <EntityTypeMapping TypeName="Organisations.Model.Org_Funding">
+              <MappingFragment StoreEntitySet="Org_Funding">
                 <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified_On" ColumnName="Modified_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CODACode" ColumnName="CODACode" />
+                <ScalarProperty Name="EffectiveTo" ColumnName="EffectiveTo" />
+                <ScalarProperty Name="EffectiveFrom" ColumnName="EffectiveFrom" />
+                <ScalarProperty Name="FundingFactorValue" ColumnName="FundingFactorValue" />
+                <ScalarProperty Name="FundingFactorType" ColumnName="FundingFactorType" />
+                <ScalarProperty Name="FundingFactor" ColumnName="FundingFactor" />
+                <ScalarProperty Name="FundModelName" ColumnName="FundModelName" />
+                <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

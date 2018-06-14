@@ -10,6 +10,8 @@ namespace ESFA.DC.Data.Organisatons.Model.Interface
 
         DbSet<ORG_Details> ORG_Details { get; set; }
 
+        DbSet<Org_Funding> ORG_Funding { get; set; }
+
         DbSet<Org_HMPP_Postcode> Org_HMPP_Postcode { get; set; }
 
         DbSet<Org_HMPP_UOP> Org_HMPP_UOP { get; set; }
@@ -19,7 +21,5 @@ namespace ESFA.DC.Data.Organisatons.Model.Interface
         DbSet<Org_UKPRN_UPIN> Org_UKPRN_UPIN { get; set; }
 
         DbSet<Org_Version> Org_Version { get; set; }
-
-        DbSet<SFA_PostcodeDisadvantage> SFA_PostcodeDisadvantage { get; set; }
     }
 }
