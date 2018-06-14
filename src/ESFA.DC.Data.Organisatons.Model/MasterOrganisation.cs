@@ -26,7 +26,6 @@ namespace ESFA.DC.Data.Organisatons.Model
     
         public long UKPRN { get; set; }
     
-        public virtual ORG_Details ORG_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Org_HMPP_Postcode> Org_HMPP_Postcode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,5 +36,6 @@ namespace ESFA.DC.Data.Organisatons.Model
         public virtual ICollection<Org_UKPRN_UPIN> Org_UKPRN_UPIN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Org_Funding> Org_Funding { get; set; }
+        public virtual Org_Details Org_Details { get; set; }
     }
 }

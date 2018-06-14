@@ -72,7 +72,7 @@
     <Compile Include="Org_DataGeneration.cs">
       <DependentUpon>Organisations.tt</DependentUpon>
     </Compile>
-    <Compile Include="ORG_Details.cs">
+    <Compile Include="Org_Details.cs">
       <DependentUpon>Organisations.tt</DependentUpon>
     </Compile>
     <Compile Include="Org_Funding.cs">

@@ -27,12 +27,12 @@ namespace ESFA.DC.Data.Organisatons.Model
     
         public virtual DbSet<MasterOrganisation> MasterOrganisations { get; set; }
         public virtual DbSet<Org_DataGeneration> Org_DataGeneration { get; set; }
-        public virtual DbSet<ORG_Details> ORG_Details { get; set; }
         public virtual DbSet<Org_HMPP_Postcode> Org_HMPP_Postcode { get; set; }
         public virtual DbSet<Org_HMPP_UOP> Org_HMPP_UOP { get; set; }
         public virtual DbSet<Org_PartnerUKPRN> Org_PartnerUKPRN { get; set; }
         public virtual DbSet<Org_UKPRN_UPIN> Org_UKPRN_UPIN { get; set; }
         public virtual DbSet<Org_Version> Org_Version { get; set; }
         public virtual DbSet<Org_Funding> Org_Funding { get; set; }
+        public virtual DbSet<Org_Details> Org_Details { get; set; }
     }
 }

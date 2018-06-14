@@ -12,7 +12,7 @@ namespace ESFA.DC.Data.Organisatons.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ORG_Details
+    public partial class Org_Details
     {
         public long UKPRN { get; set; }
         public string Name { get; set; }

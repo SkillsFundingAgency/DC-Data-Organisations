@@ -8,9 +8,9 @@ namespace ESFA.DC.Data.Organisatons.Model.Interface
 
         DbSet<Org_DataGeneration> Org_DataGeneration { get; set; }
 
-        DbSet<ORG_Details> ORG_Details { get; set; }
+        DbSet<Org_Details> Org_Details { get; set; }
 
-        DbSet<Org_Funding> ORG_Funding { get; set; }
+        DbSet<Org_Funding> Org_Funding { get; set; }
 
         DbSet<Org_HMPP_Postcode> Org_HMPP_Postcode { get; set; }
 

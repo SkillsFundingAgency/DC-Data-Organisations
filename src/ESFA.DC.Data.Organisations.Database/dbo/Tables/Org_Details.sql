@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[ORG_Details]
+﻿CREATE TABLE [dbo].[Org_Details]
 (
 	[UKPRN] BIGINT NOT NULL,
 	[Name] NVARCHAR(250) NULL,
@@ -66,5 +66,5 @@
 	[Modified_By] NVARCHAR(100) NOT NULL,
 	[HESAProvider] BIT NULL,
     PRIMARY KEY ([UKPRN]), 
-    CONSTRAINT [FK_ORG_Details_UKPRN] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN])
+    CONSTRAINT [FK_Org_Details_UKPRN] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN])
 )

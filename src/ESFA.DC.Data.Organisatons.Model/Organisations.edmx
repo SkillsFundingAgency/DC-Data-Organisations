@@ -21,7 +21,7 @@
           <Property Name="Created_On" Type="datetime" Nullable="false" />
           <Property Name="Created_By" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="ORG_Details">
+        <EntityType Name="Org_Details">
           <Key>
             <PropertyRef Name="UKPRN" />
           </Key>
@@ -194,19 +194,19 @@
           <Property Name="Modified_On" Type="datetime" Nullable="false" />
           <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK_ORG_Details_UKPRN">
+        <Association Name="FK_Org_Details_UKPRN">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
-          <End Role="ORG_Details" Type="Self.ORG_Details" Multiplicity="0..1" />
+          <End Role="Org_Details" Type="Self.Org_Details" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="MasterOrganisations">
               <PropertyRef Name="UKPRN" />
             </Principal>
-            <Dependent Role="ORG_Details">
+            <Dependent Role="Org_Details">
               <PropertyRef Name="UKPRN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ORG_Funding">
+        <Association Name="FK_Org_Funding">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
           <End Role="Org_Funding" Type="Self.Org_Funding" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,18 +269,18 @@
         <EntityContainer Name="OrganisationsModelStoreContainer">
           <EntitySet Name="MasterOrganisations" EntityType="Self.MasterOrganisations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_DataGeneration" EntityType="Self.Org_DataGeneration" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ORG_Details" EntityType="Self.ORG_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Org_Details" EntityType="Self.Org_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_Funding" EntityType="Self.Org_Funding" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_HMPP_Postcode" EntityType="Self.Org_HMPP_Postcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_HMPP_UOP" EntityType="Self.Org_HMPP_UOP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_PartnerUKPRN" EntityType="Self.Org_PartnerUKPRN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_UKPRN_UPIN" EntityType="Self.Org_UKPRN_UPIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_Version" EntityType="Self.Org_Version" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ORG_Details_UKPRN" Association="Self.FK_ORG_Details_UKPRN">
+          <AssociationSet Name="FK_Org_Details_UKPRN" Association="Self.FK_Org_Details_UKPRN">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
-            <End Role="ORG_Details" EntitySet="ORG_Details" />
+            <End Role="Org_Details" EntitySet="Org_Details" />
           </AssociationSet>
-          <AssociationSet Name="FK_ORG_Funding" Association="Self.FK_ORG_Funding">
+          <AssociationSet Name="FK_Org_Funding" Association="Self.FK_Org_Funding">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="Org_Funding" EntitySet="Org_Funding" />
           </AssociationSet>
@@ -310,12 +310,12 @@
             <PropertyRef Name="UKPRN" />
           </Key>
           <Property Name="UKPRN" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="ORG_Details" Relationship="Self.FK_ORG_Details_UKPRN" FromRole="MasterOrganisations" ToRole="ORG_Details" />
           <NavigationProperty Name="Org_HMPP_Postcode" Relationship="Self.FK_Org_HMPP_Postcode" FromRole="MasterOrganisations" ToRole="Org_HMPP_Postcode" />
           <NavigationProperty Name="Org_HMPP_UOP" Relationship="Self.FK_Org_HMPP_UOP" FromRole="MasterOrganisations" ToRole="Org_HMPP_UOP" />
           <NavigationProperty Name="Org_PartnerUKPRN" Relationship="Self.FK_Org_PartnerUKPRN" FromRole="MasterOrganisations" ToRole="Org_PartnerUKPRN" />
           <NavigationProperty Name="Org_UKPRN_UPIN" Relationship="Self.FK_Org_UKPRN_UPIN" FromRole="MasterOrganisations" ToRole="Org_UKPRN_UPIN" />
           <NavigationProperty Name="Org_Funding" Relationship="Organisations.Model.FK_ORG_Funding" FromRole="MasterOrganisation" ToRole="Org_Funding" />
+          <NavigationProperty Name="Org_Details" Relationship="Organisations.Model.FK_Org_Details_UKPRN1" FromRole="MasterOrganisation" ToRole="Org_Details1" />
         </EntityType>
         <EntityType Name="Org_DataGeneration">
           <Key>
@@ -326,77 +326,6 @@
           <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Created_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ORG_Details">
-          <Key>
-            <PropertyRef Name="UKPRN" />
-          </Key>
-          <Property Name="UKPRN" Type="Int64" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="OrganisationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SubLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Street" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Town" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Locality" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Postcode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="ExternalData" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="PhaseEduc" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="GovOffReg" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="LegalOrgType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StatusExtended" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
-          <Property Name="ThirdSector" Type="Int32" />
-          <Property Name="AccERGFold" Type="Int32" />
-          <Property Name="ContAppsTrainAgncy" Type="Int32" />
-          <Property Name="DanceDramaAward" Type="Int32" />
-          <Property Name="DirectFund" Type="Int32" />
-          <Property Name="EmpOnlyTrain" Type="Int32" />
-          <Property Name="IndepOrg" Type="Int32" />
-          <Property Name="IssueAuth" Type="Int32" />
-          <Property Name="LLDDIndepSpec" Type="Int32" />
-          <Property Name="NatSkillsAcademy" Type="Int32" />
-          <Property Name="PotThirdSector" Type="Int32" />
-          <Property Name="NASEmpUnit" Type="Int32" />
-          <Property Name="School6Form" Type="Int32" />
-          <Property Name="TertiaryColl" Type="Int32" />
-          <Property Name="OFSTEDEffect" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="OFSTED_AchStnd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="DfEEstabNum" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="EduBLocAuthSchEst" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="EdubaseURN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LEACode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LocalAuthCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="LongTermResid" Type="Int32" />
-          <Property Name="OfstedCareStds" Type="Int32" />
-          <Property Name="OFSTEDNonEduBURN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="SpecialResources" Type="Int32" />
-          <Property Name="StatryHighAge" Type="Int32" />
-          <Property Name="StatryLowAge" Type="Int32" />
-          <Property Name="OFSTEDRep" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="OFSTEDInsp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="UKLearnProv" Type="Int32" />
-          <Property Name="AgencyTrainProv" Type="Int32" />
-          <Property Name="FundBody" Type="Int32" />
-          <Property Name="EducProv" Type="Int32" />
-          <Property Name="LocalAuthority" Type="Int32" />
-          <Property Name="RegCompany" Type="Int32" />
-          <Property Name="RegCharity" Type="Int32" />
-          <Property Name="Auditor" Type="Int32" />
-          <Property Name="AwardOrgCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="SecSkillsCoun" Type="Int32" />
-          <Property Name="SectorLeadBody" Type="Int32" />
-          <Property Name="Regulator" Type="Int32" />
-          <Property Name="HMPP" Type="Int32" />
-          <Property Name="DanceAndDramaIndicator" Type="Int32" />
-          <Property Name="DirectFundedEmpIndicator" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Created_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HESAProvider" Type="Boolean" />
-          <NavigationProperty Name="MasterOrganisation" Relationship="Self.FK_ORG_Details_UKPRN" FromRole="ORG_Details" ToRole="MasterOrganisations" />
         </EntityType>
         <EntityType Name="Org_HMPP_Postcode">
           <Key>
@@ -484,18 +413,6 @@
           <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Modified_By" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="FK_ORG_Details_UKPRN">
-          <End Role="MasterOrganisations" Type="Self.MasterOrganisation" Multiplicity="1" />
-          <End Role="ORG_Details" Type="Self.ORG_Details" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="MasterOrganisations">
-              <PropertyRef Name="UKPRN" />
-            </Principal>
-            <Dependent Role="ORG_Details">
-              <PropertyRef Name="UKPRN" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Org_HMPP_Postcode">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisation" Multiplicity="1" />
           <End Role="Org_HMPP_Postcode" Type="Self.Org_HMPP_Postcode" Multiplicity="*" />
@@ -547,16 +464,11 @@
         <EntityContainer Name="Organisations" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MasterOrganisations" EntityType="Self.MasterOrganisation" />
           <EntitySet Name="Org_DataGeneration" EntityType="Self.Org_DataGeneration" />
-          <EntitySet Name="ORG_Details" EntityType="Self.ORG_Details" />
           <EntitySet Name="Org_HMPP_Postcode" EntityType="Self.Org_HMPP_Postcode" />
           <EntitySet Name="Org_HMPP_UOP" EntityType="Self.Org_HMPP_UOP" />
           <EntitySet Name="Org_PartnerUKPRN" EntityType="Self.Org_PartnerUKPRN" />
           <EntitySet Name="Org_UKPRN_UPIN" EntityType="Self.Org_UKPRN_UPIN" />
           <EntitySet Name="Org_Version" EntityType="Self.Org_Version" />
-          <AssociationSet Name="FK_ORG_Details_UKPRN" Association="Self.FK_ORG_Details_UKPRN">
-            <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
-            <End Role="ORG_Details" EntitySet="ORG_Details" />
-          </AssociationSet>
           <AssociationSet Name="FK_Org_HMPP_Postcode" Association="Self.FK_Org_HMPP_Postcode">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="Org_HMPP_Postcode" EntitySet="Org_HMPP_Postcode" />
@@ -577,6 +489,11 @@
           <AssociationSet Name="FK_ORG_Funding" Association="Organisations.Model.FK_ORG_Funding">
             <End Role="MasterOrganisation" EntitySet="MasterOrganisations" />
             <End Role="Org_Funding" EntitySet="Org_Funding" />
+          </AssociationSet>
+          <EntitySet Name="Org_Details" EntityType="Organisations.Model.Org_Details" />
+          <AssociationSet Name="FK_Org_Details_UKPRN1" Association="Organisations.Model.FK_Org_Details_UKPRN1">
+            <End Role="MasterOrganisation" EntitySet="MasterOrganisations" />
+            <End Role="Org_Details1" EntitySet="Org_Details" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Org_Funding">
@@ -613,6 +530,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Org_Details">
+          <Key>
+            <PropertyRef Name="UKPRN" />
+          </Key>
+          <Property Name="UKPRN" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OrganisationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Street" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Locality" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Postcode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ExternalData" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PhaseEduc" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="GovOffReg" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="LegalOrgType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusExtended" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdSector" Type="Int32" />
+          <Property Name="AccERGFold" Type="Int32" />
+          <Property Name="ContAppsTrainAgncy" Type="Int32" />
+          <Property Name="DanceDramaAward" Type="Int32" />
+          <Property Name="DirectFund" Type="Int32" />
+          <Property Name="EmpOnlyTrain" Type="Int32" />
+          <Property Name="IndepOrg" Type="Int32" />
+          <Property Name="IssueAuth" Type="Int32" />
+          <Property Name="LLDDIndepSpec" Type="Int32" />
+          <Property Name="NatSkillsAcademy" Type="Int32" />
+          <Property Name="PotThirdSector" Type="Int32" />
+          <Property Name="NASEmpUnit" Type="Int32" />
+          <Property Name="School6Form" Type="Int32" />
+          <Property Name="TertiaryColl" Type="Int32" />
+          <Property Name="OFSTEDEffect" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OFSTED_AchStnd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DfEEstabNum" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EduBLocAuthSchEst" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EdubaseURN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LEACode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LocalAuthCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LongTermResid" Type="Int32" />
+          <Property Name="OfstedCareStds" Type="Int32" />
+          <Property Name="OFSTEDNonEduBURN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialResources" Type="Int32" />
+          <Property Name="StatryHighAge" Type="Int32" />
+          <Property Name="StatryLowAge" Type="Int32" />
+          <Property Name="OFSTEDRep" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="OFSTEDInsp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="UKLearnProv" Type="Int32" />
+          <Property Name="AgencyTrainProv" Type="Int32" />
+          <Property Name="FundBody" Type="Int32" />
+          <Property Name="EducProv" Type="Int32" />
+          <Property Name="LocalAuthority" Type="Int32" />
+          <Property Name="RegCompany" Type="Int32" />
+          <Property Name="RegCharity" Type="Int32" />
+          <Property Name="Auditor" Type="Int32" />
+          <Property Name="AwardOrgCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecSkillsCoun" Type="Int32" />
+          <Property Name="SectorLeadBody" Type="Int32" />
+          <Property Name="Regulator" Type="Int32" />
+          <Property Name="HMPP" Type="Int32" />
+          <Property Name="DanceAndDramaIndicator" Type="Int32" />
+          <Property Name="DirectFundedEmpIndicator" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Created_By" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Modified_On" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified_By" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HESAProvider" Type="Boolean" />
+          <NavigationProperty Name="MasterOrganisation" Relationship="Organisations.Model.FK_Org_Details_UKPRN1" FromRole="Org_Details1" ToRole="MasterOrganisation" />
+        </EntityType>
+        <Association Name="FK_Org_Details_UKPRN1">
+          <End Type="Organisations.Model.MasterOrganisation" Role="MasterOrganisation" Multiplicity="1" />
+          <End Type="Organisations.Model.Org_Details" Role="Org_Details1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MasterOrganisation">
+              <PropertyRef Name="UKPRN" />
+            </Principal>
+            <Dependent Role="Org_Details1">
+              <PropertyRef Name="UKPRN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -634,77 +634,6 @@
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ORG_Details">
-            <EntityTypeMapping TypeName="Organisations.Model.ORG_Details">
-              <MappingFragment StoreEntitySet="ORG_Details">
-                <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="OrganisationCode" ColumnName="OrganisationCode" />
-                <ScalarProperty Name="SubLocation" ColumnName="SubLocation" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Town" ColumnName="Town" />
-                <ScalarProperty Name="Locality" ColumnName="Locality" />
-                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
-                <ScalarProperty Name="ExternalData" ColumnName="ExternalData" />
-                <ScalarProperty Name="PhaseEduc" ColumnName="PhaseEduc" />
-                <ScalarProperty Name="GovOffReg" ColumnName="GovOffReg" />
-                <ScalarProperty Name="LegalOrgType" ColumnName="LegalOrgType" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StatusExtended" ColumnName="StatusExtended" />
-                <ScalarProperty Name="ThirdSector" ColumnName="ThirdSector" />
-                <ScalarProperty Name="AccERGFold" ColumnName="AccERGFold" />
-                <ScalarProperty Name="ContAppsTrainAgncy" ColumnName="ContAppsTrainAgncy" />
-                <ScalarProperty Name="DanceDramaAward" ColumnName="DanceDramaAward" />
-                <ScalarProperty Name="DirectFund" ColumnName="DirectFund" />
-                <ScalarProperty Name="EmpOnlyTrain" ColumnName="EmpOnlyTrain" />
-                <ScalarProperty Name="IndepOrg" ColumnName="IndepOrg" />
-                <ScalarProperty Name="IssueAuth" ColumnName="IssueAuth" />
-                <ScalarProperty Name="LLDDIndepSpec" ColumnName="LLDDIndepSpec" />
-                <ScalarProperty Name="NatSkillsAcademy" ColumnName="NatSkillsAcademy" />
-                <ScalarProperty Name="PotThirdSector" ColumnName="PotThirdSector" />
-                <ScalarProperty Name="NASEmpUnit" ColumnName="NASEmpUnit" />
-                <ScalarProperty Name="School6Form" ColumnName="School6Form" />
-                <ScalarProperty Name="TertiaryColl" ColumnName="TertiaryColl" />
-                <ScalarProperty Name="OFSTEDEffect" ColumnName="OFSTEDEffect" />
-                <ScalarProperty Name="OFSTED_AchStnd" ColumnName="OFSTED_AchStnd" />
-                <ScalarProperty Name="DfEEstabNum" ColumnName="DfEEstabNum" />
-                <ScalarProperty Name="EduBLocAuthSchEst" ColumnName="EduBLocAuthSchEst" />
-                <ScalarProperty Name="EdubaseURN" ColumnName="EdubaseURN" />
-                <ScalarProperty Name="LEACode" ColumnName="LEACode" />
-                <ScalarProperty Name="LocalAuthCode" ColumnName="LocalAuthCode" />
-                <ScalarProperty Name="LongTermResid" ColumnName="LongTermResid" />
-                <ScalarProperty Name="OfstedCareStds" ColumnName="OfstedCareStds" />
-                <ScalarProperty Name="OFSTEDNonEduBURN" ColumnName="OFSTEDNonEduBURN" />
-                <ScalarProperty Name="SpecialResources" ColumnName="SpecialResources" />
-                <ScalarProperty Name="StatryHighAge" ColumnName="StatryHighAge" />
-                <ScalarProperty Name="StatryLowAge" ColumnName="StatryLowAge" />
-                <ScalarProperty Name="OFSTEDRep" ColumnName="OFSTEDRep" />
-                <ScalarProperty Name="OFSTEDInsp" ColumnName="OFSTEDInsp" />
-                <ScalarProperty Name="UKLearnProv" ColumnName="UKLearnProv" />
-                <ScalarProperty Name="AgencyTrainProv" ColumnName="AgencyTrainProv" />
-                <ScalarProperty Name="FundBody" ColumnName="FundBody" />
-                <ScalarProperty Name="EducProv" ColumnName="EducProv" />
-                <ScalarProperty Name="LocalAuthority" ColumnName="LocalAuthority" />
-                <ScalarProperty Name="RegCompany" ColumnName="RegCompany" />
-                <ScalarProperty Name="RegCharity" ColumnName="RegCharity" />
-                <ScalarProperty Name="Auditor" ColumnName="Auditor" />
-                <ScalarProperty Name="AwardOrgCode" ColumnName="AwardOrgCode" />
-                <ScalarProperty Name="SecSkillsCoun" ColumnName="SecSkillsCoun" />
-                <ScalarProperty Name="SectorLeadBody" ColumnName="SectorLeadBody" />
-                <ScalarProperty Name="Regulator" ColumnName="Regulator" />
-                <ScalarProperty Name="HMPP" ColumnName="HMPP" />
-                <ScalarProperty Name="DanceAndDramaIndicator" ColumnName="DanceAndDramaIndicator" />
-                <ScalarProperty Name="DirectFundedEmpIndicator" ColumnName="DirectFundedEmpIndicator" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Modified_On" ColumnName="Modified_On" />
-                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
-                <ScalarProperty Name="HESAProvider" ColumnName="HESAProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -801,6 +730,77 @@
                 <ScalarProperty Name="FundingFactorType" ColumnName="FundingFactorType" />
                 <ScalarProperty Name="FundingFactor" ColumnName="FundingFactor" />
                 <ScalarProperty Name="FundModelName" ColumnName="FundModelName" />
+                <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Org_Details">
+            <EntityTypeMapping TypeName="Organisations.Model.Org_Details">
+              <MappingFragment StoreEntitySet="Org_Details">
+                <ScalarProperty Name="HESAProvider" ColumnName="HESAProvider" />
+                <ScalarProperty Name="Modified_By" ColumnName="Modified_By" />
+                <ScalarProperty Name="Modified_On" ColumnName="Modified_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DirectFundedEmpIndicator" ColumnName="DirectFundedEmpIndicator" />
+                <ScalarProperty Name="DanceAndDramaIndicator" ColumnName="DanceAndDramaIndicator" />
+                <ScalarProperty Name="HMPP" ColumnName="HMPP" />
+                <ScalarProperty Name="Regulator" ColumnName="Regulator" />
+                <ScalarProperty Name="SectorLeadBody" ColumnName="SectorLeadBody" />
+                <ScalarProperty Name="SecSkillsCoun" ColumnName="SecSkillsCoun" />
+                <ScalarProperty Name="AwardOrgCode" ColumnName="AwardOrgCode" />
+                <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+                <ScalarProperty Name="RegCharity" ColumnName="RegCharity" />
+                <ScalarProperty Name="RegCompany" ColumnName="RegCompany" />
+                <ScalarProperty Name="LocalAuthority" ColumnName="LocalAuthority" />
+                <ScalarProperty Name="EducProv" ColumnName="EducProv" />
+                <ScalarProperty Name="FundBody" ColumnName="FundBody" />
+                <ScalarProperty Name="AgencyTrainProv" ColumnName="AgencyTrainProv" />
+                <ScalarProperty Name="UKLearnProv" ColumnName="UKLearnProv" />
+                <ScalarProperty Name="OFSTEDInsp" ColumnName="OFSTEDInsp" />
+                <ScalarProperty Name="OFSTEDRep" ColumnName="OFSTEDRep" />
+                <ScalarProperty Name="StatryLowAge" ColumnName="StatryLowAge" />
+                <ScalarProperty Name="StatryHighAge" ColumnName="StatryHighAge" />
+                <ScalarProperty Name="SpecialResources" ColumnName="SpecialResources" />
+                <ScalarProperty Name="OFSTEDNonEduBURN" ColumnName="OFSTEDNonEduBURN" />
+                <ScalarProperty Name="OfstedCareStds" ColumnName="OfstedCareStds" />
+                <ScalarProperty Name="LongTermResid" ColumnName="LongTermResid" />
+                <ScalarProperty Name="LocalAuthCode" ColumnName="LocalAuthCode" />
+                <ScalarProperty Name="LEACode" ColumnName="LEACode" />
+                <ScalarProperty Name="EdubaseURN" ColumnName="EdubaseURN" />
+                <ScalarProperty Name="EduBLocAuthSchEst" ColumnName="EduBLocAuthSchEst" />
+                <ScalarProperty Name="DfEEstabNum" ColumnName="DfEEstabNum" />
+                <ScalarProperty Name="OFSTED_AchStnd" ColumnName="OFSTED_AchStnd" />
+                <ScalarProperty Name="OFSTEDEffect" ColumnName="OFSTEDEffect" />
+                <ScalarProperty Name="TertiaryColl" ColumnName="TertiaryColl" />
+                <ScalarProperty Name="School6Form" ColumnName="School6Form" />
+                <ScalarProperty Name="NASEmpUnit" ColumnName="NASEmpUnit" />
+                <ScalarProperty Name="PotThirdSector" ColumnName="PotThirdSector" />
+                <ScalarProperty Name="NatSkillsAcademy" ColumnName="NatSkillsAcademy" />
+                <ScalarProperty Name="LLDDIndepSpec" ColumnName="LLDDIndepSpec" />
+                <ScalarProperty Name="IssueAuth" ColumnName="IssueAuth" />
+                <ScalarProperty Name="IndepOrg" ColumnName="IndepOrg" />
+                <ScalarProperty Name="EmpOnlyTrain" ColumnName="EmpOnlyTrain" />
+                <ScalarProperty Name="DirectFund" ColumnName="DirectFund" />
+                <ScalarProperty Name="DanceDramaAward" ColumnName="DanceDramaAward" />
+                <ScalarProperty Name="ContAppsTrainAgncy" ColumnName="ContAppsTrainAgncy" />
+                <ScalarProperty Name="AccERGFold" ColumnName="AccERGFold" />
+                <ScalarProperty Name="ThirdSector" ColumnName="ThirdSector" />
+                <ScalarProperty Name="StatusExtended" ColumnName="StatusExtended" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="LegalOrgType" ColumnName="LegalOrgType" />
+                <ScalarProperty Name="GovOffReg" ColumnName="GovOffReg" />
+                <ScalarProperty Name="PhaseEduc" ColumnName="PhaseEduc" />
+                <ScalarProperty Name="ExternalData" ColumnName="ExternalData" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="SubLocation" ColumnName="SubLocation" />
+                <ScalarProperty Name="OrganisationCode" ColumnName="OrganisationCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
               </MappingFragment>
             </EntityTypeMapping>
