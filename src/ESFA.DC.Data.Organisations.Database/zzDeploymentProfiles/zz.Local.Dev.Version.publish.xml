@@ -32,5 +32,8 @@
     <SqlCmdVariable Include="RWUserPassword">
       <Value>Set@Deploymnet</Value>
     </SqlCmdVariable>
+    <SqlCmdVariable Include="RELEASE_RELEASENAME">
+      <Value>From Local Machine</Value>
+    </SqlCmdVariable>
   </ItemGroup>
 </Project>
