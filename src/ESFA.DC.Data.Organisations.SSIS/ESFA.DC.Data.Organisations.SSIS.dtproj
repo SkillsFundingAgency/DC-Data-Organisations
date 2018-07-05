@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">PJC-DEV</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAm5e9ARKQ9EKx1KhPLbz55AAAAAACAAAAAAAQZgAAAAEAACAAAAClKXYGaHxtQuvq5gyDkA2t/mJnJ9fRpj6dAvGGa3MAeAAAAAAOgAAAAAIAACAAAADyPl4Y2n5dhYmwGjk96OE3F/XkWb9DsbkuwodISGmQ5pAAAAAfNVnGsm7vJbj3T45I70sXyUIAwYAD8p6OJF5lVi9LBWjTdiCB+H4OTrsHT/NJBQPSE7lL3fl1QVN/y1cEENhTjS9U5go0okf1/VmFZuaFLUdQkT7LDJqeCPlJnAcYBC5Rid/JXzw94thsM9tcjmiiFqUHLAQP8p+jVMLLSsaqEqG+kpNm3Pcd0o6aGZJSG7ZAAAAAiEpCmte712D161vmdrs1Iro2+YZHxO/v4czzUqa0p3hV1TAENHICU6UohujXiPSkfsWi5W/rX2610NToBxNuFA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAm5e9ARKQ9EKx1KhPLbz55AAAAAACAAAAAAAQZgAAAAEAACAAAACK7fC8nIIIl9TMEb9+wnvZiwwJO3eruU0zb2o25zFaUgAAAAAOgAAAAAIAACAAAABRFy1caHKkmC+Y1iwXyXcI9uvHIf43+hH0257dkcnWXJAAAAAUauljcx8ZMhp+g1wD1KXyftSqt5VW9m8Dh+kq3sk3t+KyolankBTVcJVCU1cFjIFqLxaUVg6R+viMlDn3/RHIkApFrt878GITzwseLe9R2aJPrDRhpDe5i7QWjBYsPmTA79g08ubZLh9oMcTNUxs/hYE56M/DV9ZlB6N1TVpqMnIUWrrIUHi+9AuZM50zb6FAAAAAbJHy+l/hQiBSDbcu/byGjysLTz7sZbfManJ/9Eiz+cHVznI+GVZxoSZqMzNfVUsInE1ZBeG3RV06cTyFIX0/5w==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -42,10 +42,10 @@
                 <SSIS:Property SSIS:Name="Name">Load ORG Data</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">100</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">103</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{5E86DBAD-5F0C-46D1-A4F0-5331D28F7261}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{16900ADC-E2CB-40F3-83CB-7C02512E07C3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -76,7 +76,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=ORG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=.;Initial Catalog=ORG1;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -153,6 +153,21 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="CM.Target Connection Manager.ConnectionString">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Data Source=dcol-dev-sqlserver-weu.database.windows.net,1433;User ID=ahhh;Initial Catalog=Org;Provider=SQLNCLI11.1;Auto Translate=False;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
                 <SSIS:Parameter SSIS:Name="CM.Target Connection Manager.InitialCatalog">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
@@ -164,7 +179,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">ORG</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Org</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -208,7 +223,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">.</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">dcol-dev-sqlserver-weu.database.windows.net,1433</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -223,6 +238,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">ahhh</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
