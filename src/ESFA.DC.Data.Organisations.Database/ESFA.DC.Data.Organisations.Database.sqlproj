@@ -66,7 +66,6 @@
     <Folder Include="Staging\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="zzDeploymentProfiles\Release.publish.xml" />
     <None Include="zzDeploymentProfiles\zz.Local.Dev.Version.publish.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +110,11 @@
     <SqlCmdVariable Include="BUILD_BUILDNUMBER">
       <DefaultValue>LocalDeployment</DefaultValue>
       <Value>$(SqlCmdVar__3)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="RELEASE_RELEASENAME">
+      <DefaultValue>
+      </DefaultValue>
+      <Value>$(SqlCmdVar__5)</Value>
     </SqlCmdVariable>
     <SqlCmdVariable Include="ROUserPassword">
       <DefaultValue>NotUsed@Locally</DefaultValue>
