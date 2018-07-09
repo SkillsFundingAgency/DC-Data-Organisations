@@ -8,6 +8,5 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    CONSTRAINT [FK_Org_PartnerUKPRN] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN]),
     PRIMARY KEY ([UKPRN], [EffectiveFrom])
 )
