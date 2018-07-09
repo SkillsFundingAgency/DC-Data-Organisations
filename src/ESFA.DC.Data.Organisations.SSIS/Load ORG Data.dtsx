@@ -12,8 +12,8 @@
   DTS:ObjectName="Load ORG Data"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="119"
-  DTS:VersionGUID="{FA8F5CEA-EDDF-42FF-8198-DD24A969B572}">
+  DTS:VersionBuild="121"
+  DTS:VersionGUID="{81573C45-A341-416E-B2FC-39C900A05811}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -753,7 +753,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - DataGeneration"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="4">
+              DTS:ThreadHint="0">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -3936,7 +3936,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - Details"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="5">
+              DTS:ThreadHint="1">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -5641,7 +5641,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - HMPP_PostCode"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="1">
+              DTS:ThreadHint="4">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -6337,7 +6337,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - HMPP_UOP"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="2">
+              DTS:ThreadHint="5">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -6985,7 +6985,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - MasterOrganisations"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="0">
+              DTS:ThreadHint="6">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -7681,7 +7681,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - PartnerUKPRN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="6">
+              DTS:ThreadHint="7">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -8463,7 +8463,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - UKPRN_UPIN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="7">
+              DTS:ThreadHint="8">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -9409,7 +9409,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - Version"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="8">
+              DTS:ThreadHint="2">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -9965,7 +9965,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="135,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details\Target Data"
@@ -9997,7 +9997,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10019,7 +10021,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10309,7 +10313,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data"
@@ -10349,7 +10353,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
