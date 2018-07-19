@@ -65,6 +65,5 @@
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
 	[HESAProvider] BIT NULL,
-    PRIMARY KEY ([UKPRN]), 
-    CONSTRAINT [FK_Org_Details_UKPRN] FOREIGN KEY ([UKPRN]) REFERENCES [MasterOrganisations]([UKPRN])
+    PRIMARY KEY ([UKPRN])
 )

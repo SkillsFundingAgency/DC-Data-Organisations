@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Org_PartnerUKPRN]
 (
 	[UKPRN] BIGINT NOT NULL,
-	[NameLegal] NVARCHAR(15) NOT NULL,
+	[NameLegal] NVARCHAR(255) NOT NULL,
 	[EffectiveFrom] DATE NOT NULL,
 	[EffectiveTo] DATE NULL,
 	[Created_On] DATETIME NOT NULL, 
