@@ -7,7 +7,8 @@ BEGIN
 
 		MERGE INTO [dbo].[Org_Funding] AS Target
 		USING (
-				SELECT  [UKPRN],
+				SELECT  DISTINCT 
+						[UKPRN],
 						[FundModelName],
 						[FundingFactor],
 						[FundingFactorType],
@@ -23,25 +24,23 @@ BEGIN
 				  FROM [Staging].[Org_Funding]
 			  )
 			  AS Source 
-		    ON Target.[UKPRN] = Source.[UKPRN]
+		     ON Target.[UKPRN] = Source.[UKPRN]
+			AND Target.[FundingFactorType] = Source.[FundingFactorType]
+			AND Target.[FundingFactor] = Source.[FundingFactor]
+			AND Target.[EffectiveFrom] = Source.[EffectiveFrom]
+
 			WHEN MATCHED 
 				AND EXISTS 
 					(	SELECT 
 							Source.[FundModelName],
-							Source.[FundingFactor],
-							Source.[FundingFactorType],
 							Source.[FundingFactorValue],
-							Source.[EffectiveFrom],
 							Source.[EffectiveTo],
 							Source.[CODACode],
 							Source.[Comment]
 					EXCEPT 
 						SELECT 
 							Target.[FundModelName],
-							Target.[FundingFactor],
-							Target.[FundingFactorType],
 							Target.[FundingFactorValue],
-							Target.[EffectiveFrom],
 							Target.[EffectiveTo],
 							Target.[CODACode],
 							Target.[Comment]
@@ -49,10 +48,7 @@ BEGIN
 		  THEN
 			UPDATE SET   
 				[FundModelName]=Source.[FundModelName],
-				[FundingFactor]=Source.[FundingFactor],
-				[FundingFactorType]=Source.[FundingFactorType],
 				[FundingFactorValue]=Source.[FundingFactorValue],
-				[EffectiveFrom]=Source.[EffectiveFrom],
 				[EffectiveTo]=Source.[EffectiveTo],
 				[CODACode]=Source.[CODACode],
 				[Comment]=Source.[Comment],

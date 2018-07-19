@@ -5,13 +5,13 @@ BEGIN
 
 	BEGIN TRY
 				
+			EXEC [Staging].[usp_Process_MasterOrganisation];
+
 			EXEC [Staging].[usp_Process_Org_Details];
 			EXEC [Staging].[usp_Process_Org_Funding];
 			EXEC [Staging].[usp_Process_Org_HMPP_Postcode];
 			EXEC [Staging].[usp_Process_Org_HMPP_UOP];
 			EXEC [Staging].[usp_Process_Org_UKPRN_UPIN];
-
-			EXEC [Staging].[usp_Process_MasterOrganisation];
 
 			EXEC [Staging].[usp_Process_Version];
 			EXEC [Staging].[usp_Process_DataGeneration];
