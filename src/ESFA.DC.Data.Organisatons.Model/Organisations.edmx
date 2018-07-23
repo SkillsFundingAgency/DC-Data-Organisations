@@ -148,7 +148,7 @@
             <PropertyRef Name="EffectiveFrom" />
           </Key>
           <Property Name="UKPRN" Type="bigint" Nullable="false" />
-          <Property Name="NameLegal" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NameLegal" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="EffectiveFrom" Type="date" Nullable="false" />
           <Property Name="EffectiveTo" Type="date" />
           <Property Name="Created_On" Type="datetime" Nullable="false" />
@@ -193,6 +193,15 @@
           <Property Name="Created_By" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Modified_On" Type="datetime" Nullable="false" />
           <Property Name="Modified_By" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Org.dbo.Current_Version' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Current_Version">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CurrentVersion" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Org_Details_UKPRN">
           <End Role="MasterOrganisations" Type="Self.MasterOrganisations" Multiplicity="1" />
@@ -276,6 +285,12 @@
           <EntitySet Name="Org_PartnerUKPRN" EntityType="Self.Org_PartnerUKPRN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_UKPRN_UPIN" EntityType="Self.Org_UKPRN_UPIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Org_Version" EntityType="Self.Org_Version" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Current_Version" EntityType="Self.Current_Version" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Current_Version].[ID] AS [ID], 
+    [Current_Version].[CurrentVersion] AS [CurrentVersion]
+    FROM [dbo].[Current_Version] AS [Current_Version]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Org_Details_UKPRN" Association="Self.FK_Org_Details_UKPRN">
             <End Role="MasterOrganisations" EntitySet="MasterOrganisations" />
             <End Role="Org_Details" EntitySet="Org_Details" />
@@ -365,7 +380,7 @@
             <PropertyRef Name="EffectiveFrom" />
           </Key>
           <Property Name="UKPRN" Type="Int64" Nullable="false" />
-          <Property Name="NameLegal" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EffectiveFrom" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EffectiveTo" Type="DateTime" Precision="0" />
           <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" />
@@ -495,6 +510,7 @@
             <End Role="MasterOrganisation" EntitySet="MasterOrganisations" />
             <End Role="Org_Details1" EntitySet="Org_Details" />
           </AssociationSet>
+          <EntitySet Name="Current_Version" EntityType="Organisations.Model.Current_Version" />
         </EntityContainer>
         <EntityType Name="Org_Funding">
           <Key>
@@ -613,6 +629,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Current_Version">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CurrentVersion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -802,6 +825,14 @@
                 <ScalarProperty Name="OrganisationCode" ColumnName="OrganisationCode" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UKPRN" ColumnName="UKPRN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Current_Version">
+            <EntityTypeMapping TypeName="Organisations.Model.Current_Version">
+              <MappingFragment StoreEntitySet="Current_Version">
+                <ScalarProperty Name="CurrentVersion" ColumnName="CurrentVersion" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

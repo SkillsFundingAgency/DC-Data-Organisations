@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Current_Version.cs">
+      <DependentUpon>Organisations.tt</DependentUpon>
+    </Compile>
     <Compile Include="Interface\IOrganisations.cs" />
     <Compile Include="MasterOrganisation.cs">
       <DependentUpon>Organisations.tt</DependentUpon>

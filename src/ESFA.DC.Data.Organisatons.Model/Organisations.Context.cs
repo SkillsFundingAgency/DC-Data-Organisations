@@ -9,11 +9,11 @@
 
 namespace ESFA.DC.Data.Organisatons.Model
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using ESFA.DC.Data.Organisatons.Model.Interface;
-
-    public partial class Organisations : DbContext, IOrganisations
+    
+    public partial class Organisations : DbContext
     {
         public Organisations()
             : base("name=Organisations")
@@ -34,5 +34,6 @@ namespace ESFA.DC.Data.Organisatons.Model
         public virtual DbSet<Org_Version> Org_Version { get; set; }
         public virtual DbSet<Org_Funding> Org_Funding { get; set; }
         public virtual DbSet<Org_Details> Org_Details { get; set; }
+        public virtual DbSet<Current_Version> Current_Version { get; set; }
     }
 }
