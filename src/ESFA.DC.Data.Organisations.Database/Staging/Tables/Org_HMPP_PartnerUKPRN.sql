@@ -8,5 +8,9 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    PRIMARY KEY ([UKPRN], [EffectiveFrom])
+    CONSTRAINT [PK_Staging_Org_PartnerUKPRN] PRIMARY KEY  ([UKPRN], [EffectiveFrom])
 )
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_PartnerUKPRN TO [Org_RW_User];
+

@@ -12,8 +12,8 @@
   DTS:ObjectName="Load ORG Data"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="121"
-  DTS:VersionGUID="{81573C45-A341-416E-B2FC-39C900A05811}">
+  DTS:VersionBuild="125"
+  DTS:VersionGUID="{52A414C5-D011-46A0-B545-B75DE9170D11}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,11 @@
         DTS:Name="ConnectionString">@[$Project::SourceConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DSCI-PRD-ADM-01;Initial Catalog=Organisation;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=SQLServerHere;User Id=UserAccountHere;Initial Catalog=DbNameHere;Provider=SQLNCLI11.1;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"></DTS:Password>
+        </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -38,7 +42,7 @@
         DTS:Name="ConnectionString">@[$Project::TargetConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DCOL-DEV-SqlServer-WEU.database.windows.net;User Id=Org_RW_User;initial catalog=Org;Provider=sqloledb;MultipleActiveResultSets=True;App=RefDataLoader;">
+          DTS:ConnectionString="Data Source=SQLServerHere;User Id=UserAccountHere;Initial Catalog=DbNameHere;Provider=SQLNCLI11.1;Auto Translate=False;">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"></DTS:Password>
@@ -3936,7 +3940,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - Details"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="1">
+              DTS:ThreadHint="3">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -4842,13 +4846,11 @@
                               name="Created_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[Modified_On]"
@@ -4945,7 +4947,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - Funding"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="3">
+              DTS:ThreadHint="1">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -5571,13 +5573,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -5641,7 +5641,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - HMPP_PostCode"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="4">
+              DTS:ThreadHint="2">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -6267,13 +6267,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -7611,13 +7609,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -7681,7 +7677,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - PartnerUKPRN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="7">
+              DTS:ThreadHint="4">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -8379,13 +8375,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -8402,13 +8396,11 @@
                               name="Status" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[StatusEffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="StatusEffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[StatusEffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="StatusEffectiveTo" />
                           </externalMetadataColumns>
                         </input>
@@ -8463,7 +8455,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - UKPRN_UPIN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="8">
+              DTS:ThreadHint="7">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -9338,13 +9330,11 @@
                               name="RefDataSchemaName" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[ActivationDate]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="ActivationDate" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[ExpiryDate]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="ExpiryDate" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
@@ -9409,7 +9399,7 @@
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Delete from - Version"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="2">
+              DTS:ThreadHint="8">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -9487,7 +9477,7 @@
           PanelSize="394,166"
           Size="394,209"
           Id="Package\SEQ - Process Data"
-          TopLeft="2341.76190476191,1053.28571428572" />
+          TopLeft="2324.42857142858,1081.61904761905" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration"
@@ -9824,36 +9814,24 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="1304,632"
-          Size="1304,675"
+          PanelSize="1304,580"
+          Size="1304,623"
           Id="Package\SEQ - Stage Data"
-          TopLeft="969,961.57142857143" />
+          TopLeft="960.666666666667,879.904761904763" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="2273,1299.07142857143">
+          TopLeft="2264.66666666667,1188.7619047619">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="68.76190476191,-141.28571428571"
+              EndConnector="59.76190476191,0"
               Start="0,0"
-              End="61.26190476191,-141.28571428571">
+              End="52.26190476191,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="30.380952380955,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="30.380952380955,0"
-                    Point2="34.380952380955,0"
-                    Point3="34.380952380955,-4" />
-                  <mssgle:LineSegment
-                    End="34.380952380955,-137.28571428571" />
-                  <mssgle:CubicBezierSegment
-                    Point1="34.380952380955,-137.28571428571"
-                    Point2="34.380952380955,-141.28571428571"
-                    Point3="38.380952380955,-141.28571428571" />
-                  <mssgle:LineSegment
-                    End="61.26190476191,-141.28571428571" />
+                    End="52.26190476191,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10049,7 +10027,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Source Data"
@@ -10081,9 +10059,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10105,9 +10081,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10133,7 +10107,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Source Data"
@@ -10177,9 +10151,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10201,9 +10173,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10229,7 +10199,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Source Data"
@@ -10261,9 +10231,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10285,9 +10253,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10386,7 +10352,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Source Data"
@@ -10430,9 +10396,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10454,9 +10418,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10482,7 +10444,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Source Data"
@@ -10526,9 +10488,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10562,9 +10522,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10590,7 +10548,7 @@
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="136,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Source Data"
@@ -10634,9 +10592,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10658,9 +10614,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

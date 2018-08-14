@@ -11,5 +11,9 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    PRIMARY KEY ([UKPRN], [UPIN], [EffectiveFrom])
+    CONSTRAINT [PK_Staging_Org_UKPRN_UPIN] PRIMARY KEY ([UKPRN], [UPIN], [EffectiveFrom])
 )
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_UKPRN_UPIN TO [Org_RW_User];
+

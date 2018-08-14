@@ -64,6 +64,10 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-	[HESAProvider] BIT NULL,
-    PRIMARY KEY ([UKPRN])
+	[HESAProvider] BIT NULL,	
+    CONSTRAINT [PK_Staging_Org_Details] PRIMARY KEY ([UKPRN])
 )
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_Details TO [Org_RW_User];
+
