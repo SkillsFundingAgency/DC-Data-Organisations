@@ -64,6 +64,7 @@
     <Folder Include="Staging" />
     <Folder Include="Staging\Stored Procedures" />
     <Folder Include="Staging\Tables" />
+    <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
     <None Include="zzDeploymentProfiles\zz.Local.Dev.Version.publish.xml" />
@@ -101,6 +102,7 @@
     <Build Include="Staging\Stored Procedures\usp_Process_Org_PartnerUKPRN.sql" />
     <Build Include="Staging\Stored Procedures\usp_Process_Org_UKPRN_UPIN.sql" />
     <Build Include="Staging\Stored Procedures\usp_Process_MasterOrganisation.sql" />
+    <Build Include="dbo\Views\Current_Version.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="BUILD_BRANCHNAME">

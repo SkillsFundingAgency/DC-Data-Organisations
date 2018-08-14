@@ -5,16 +5,27 @@ BEGIN
 
 	BEGIN TRY
 
-		MERGE INTO [dbo].[Org_Details] AS Target
+		MERGE INTO [dbo].[MasterOrganisations] AS Target
 		USING (
 				SELECT DISTINCT [UKPRN]
 				FROM
 				(
-					SELECT [UKPRN]
-					  FROM [dbo].[Org_Details]
-				--UNION
-				--	SELECT [UKPRN]
-				--	  FROM [dbo].[Org_Funding]
+						  SELECT [UKPRN]
+						  FROM [Staging].[Org_Details]
+					UNION SELECT [UKPRN]
+						  FROM [dbo].[Org_Funding]
+					UNION SELECT [UKPRN]
+						  FROM [Staging].[Org_HMPP_UOP]
+					UNION SELECT [UKPRN]
+						  FROM [Staging].[Org_UKPRN_UPIN]
+					UNION SELECT [UKPRN]
+						  FROM [dbo].[Org_Details]
+					--UNION
+					--	SELECT [UKPRN]
+					--	  FROM [dbo].[Org_Funding]
+					--UNION
+					--	SELECT [UKPRN]
+					--	  FROM [dbo].[Org_Funding]
 				) as AllRecords
 			  )
 			  AS Source 
