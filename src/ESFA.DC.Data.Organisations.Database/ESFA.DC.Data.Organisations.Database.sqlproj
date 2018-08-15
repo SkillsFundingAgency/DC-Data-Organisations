@@ -85,7 +85,6 @@
     <Build Include="Security\Organisations_RO_User.sql" />
     <Build Include="Staging\Stored Procedures\usp_Process.sql" />
     <Build Include="Staging\Stored Procedures\usp_Process_Org_Funding.sql" />
-    <Build Include="Staging\Tables\MasterOrganisations.sql" />
     <Build Include="Staging\Tables\Org_DataGeneration.sql" />
     <Build Include="Staging\Tables\Org_Details.sql" />
     <Build Include="Staging\Tables\Org_Funding.sql" />
