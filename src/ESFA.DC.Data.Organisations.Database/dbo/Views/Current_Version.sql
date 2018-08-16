@@ -17,7 +17,7 @@ AS
 	FROM CTE_Highest_Version
 	WHERE [Rank] = 1
 )
- SELECT CONVERT(VARCHAR(100),'Version ' + CONVERT(VARCHAR(10),[MajorNumber]) 
+ SELECT 0 as ID, CONVERT(VARCHAR(100),'Version ' + CONVERT(VARCHAR(10),[MajorNumber]) 
 			+ '.' 
 			+ CONVERT(VARCHAR(10),[MinorNumber])
 			+ '.' 
