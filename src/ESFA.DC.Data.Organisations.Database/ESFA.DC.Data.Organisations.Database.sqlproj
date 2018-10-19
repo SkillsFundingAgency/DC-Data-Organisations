@@ -103,6 +103,9 @@
     <Build Include="Staging\Stored Procedures\usp_Process_Org_UKPRN_UPIN.sql" />
     <Build Include="Staging\Stored Procedures\usp_Process_MasterOrganisation.sql" />
     <Build Include="dbo\Views\Current_Version.sql" />
+    <Build Include="Security\Role_DataViewer.sql" />
+    <Build Include="Security\User_DsciUser.sql" />
+    <Build Include="Security\Role_DataProcessor.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="BUILD_BRANCHNAME">
@@ -112,6 +115,10 @@
     <SqlCmdVariable Include="BUILD_BUILDNUMBER">
       <DefaultValue>LocalDeployment</DefaultValue>
       <Value>$(SqlCmdVar__3)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="DsciUserPassword">
+      <DefaultValue>NotUsed@Locally</DefaultValue>
+      <Value>$(SqlCmdVar__6)</Value>
     </SqlCmdVariable>
     <SqlCmdVariable Include="RELEASE_RELEASENAME">
       <DefaultValue>

@@ -1,7 +1,13 @@
 ﻿
 GO
-ALTER ROLE [db_datareader] ADD MEMBER [Org_RO_User];
+ALTER ROLE [DataViewer] ADD MEMBER [User_DSCI];
 GO
-ALTER ROLE [db_datawriter] ADD MEMBER [Org_RW_User];
+
+ALTER ROLE [DataViewer] ADD MEMBER [Org_RO_User];
 GO
-ALTER ROLE [db_datareader] ADD MEMBER [Org_RW_User];
+
+ALTER ROLE [DataViewer] ADD MEMBER [Org_RW_User];
+GO
+ALTER ROLE [DataProcessor] ADD MEMBER [Org_RW_User];
+GO
+
