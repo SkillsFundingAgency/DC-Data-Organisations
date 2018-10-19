@@ -13,16 +13,13 @@ BEGIN
 						  SELECT [UKPRN]
 						  FROM [Staging].[Org_Details]
 					UNION SELECT [UKPRN]
-						  FROM [dbo].[Org_Funding]
+						  FROM [Staging].[Org_Funding]
 					UNION SELECT [UKPRN]
 						  FROM [Staging].[Org_HMPP_UOP]
 					UNION SELECT [UKPRN]
 						  FROM [Staging].[Org_UKPRN_UPIN]
 					UNION SELECT [UKPRN]
-						  FROM [dbo].[Org_Details]
-					--UNION
-					--	SELECT [UKPRN]
-					--	  FROM [dbo].[Org_Funding]
+						  FROM [Staging].[Org_PartnerUKPRN]
 					--UNION
 					--	SELECT [UKPRN]
 					--	  FROM [dbo].[Org_Funding]
@@ -42,11 +39,8 @@ BEGIN
 		--	UPDATE SET   
 		--		[UKPRN]=Source.[UKPRN]
 		WHEN NOT MATCHED BY TARGET THEN
-		INSERT (   [UKPRN]				  
-					)
-			VALUES ( 
-					Source.[UKPRN]
-				  )
+		    INSERT ( [UKPRN] )
+			VALUES ( Source.[UKPRN] )
 		WHEN NOT MATCHED BY SOURCE THEN DELETE
 		;
 

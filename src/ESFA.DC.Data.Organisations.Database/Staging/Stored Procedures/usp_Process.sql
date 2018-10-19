@@ -12,6 +12,7 @@ BEGIN
 			EXEC [Staging].[usp_Process_Org_HMPP_Postcode];
 			EXEC [Staging].[usp_Process_Org_HMPP_UOP];
 			EXEC [Staging].[usp_Process_Org_UKPRN_UPIN];
+			EXEC [Staging].[usp_Process_Org_PartnerUKPRN];
 
 			EXEC [Staging].[usp_Process_Version];
 			EXEC [Staging].[usp_Process_DataGeneration];
@@ -51,3 +52,8 @@ BEGIN
 -------------------------------------------------------------------------------------- 
 -- 
 END
+
+GO
+
+GRANT EXECUTE ON [Staging].[usp_Process] TO [Org_RW_User]
+GO

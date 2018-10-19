@@ -8,5 +8,9 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    PRIMARY KEY ([UKPRN], [UOPCode], [EffectiveFrom])
+    CONSTRAINT [PK_Staging_Org_HMPP_UOP] PRIMARY KEY  ([UKPRN], [UOPCode], [EffectiveFrom])
 )
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_HMPP_UOP TO [Org_RW_User];
+

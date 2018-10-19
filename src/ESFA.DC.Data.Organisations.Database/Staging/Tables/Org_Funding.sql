@@ -13,5 +13,9 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    PRIMARY KEY ([UKPRN] ASC, [FundingFactorType] ASC, [FundingFactor] ASC, [EffectiveFrom] ASC)
+    CONSTRAINT [PK_Staging_Org_Funding] PRIMARY KEY  ([UKPRN] ASC, [FundingFactorType] ASC, [FundingFactor] ASC, [EffectiveFrom] ASC)
 )
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_Funding TO [Org_RW_User];
+

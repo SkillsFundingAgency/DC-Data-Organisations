@@ -12,11 +12,27 @@
   DTS:ObjectName="Load ORG Data"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="121"
-  DTS:VersionGUID="{81573C45-A341-416E-B2FC-39C900A05811}">
+  DTS:VersionBuild="130"
+  DTS:VersionGUID="{6EA33799-F0F8-4E48-B1F5-A7D6E145CDE0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[App Log Connection String]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{74F0C0E1-B294-4D4F-B5D5-E413812FD49C}"
+      DTS:ObjectName="App Log Connection String">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AppLogConnectionString_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"></DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[Source Connection Manager]"
       DTS:CreationName="OLEDB"
@@ -26,7 +42,7 @@
         DTS:Name="ConnectionString">@[$Project::SourceConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DSCI-PRD-ADM-01;Initial Catalog=Organisation;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+          DTS:ConnectionString="" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -38,7 +54,7 @@
         DTS:Name="ConnectionString">@[$Project::TargetConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DCOL-DEV-SqlServer-WEU.database.windows.net;User Id=Org_RW_User;initial catalog=Org;Provider=sqloledb;MultipleActiveResultSets=True;App=RefDataLoader;">
+          DTS:ConnectionString="">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"></DTS:Password>
@@ -57,6 +73,15 @@
       DTS:ObjectName="DefaultLastRunDatetime">
       <DTS:VariableValue
         DTS:DataType="8">1/Jan/1800 00:00:001</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{89857431-C95E-4B1D-9DFA-EF1CADC3D8B8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RefDataName">
+      <DTS:VariableValue
+        DTS:DataType="8">Org</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -79,10 +104,167 @@
   </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
+      DTS:refId="Package\SEQ - Process - Log Completed"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{ee1c2fae-8157-47b9-9554-30e53735b10f}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ - Process - Log Completed">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1b8675a5-7e02-4822-83b0-ebc485ff3960}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Action">
+          <DTS:VariableValue
+            DTS:DataType="8">Completed</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{f8c2dc50-c39f-47ca-befd-4c4a82e39ea1}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Name">
+          <DTS:VariableValue
+            DTS:DataType="8">Log Start</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{c40eaef2-96b7-49db-81d8-1cbdf6cdcaae}"
+          DTS:EvaluateAsExpression="True"
+          DTS:Expression="&quot;INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])&#xA;SELECT &#xA; '&quot; + @[User::RefDataName] + &quot; Ref Data Refresh &quot; + @[User::Action] + &quot;' AS [Message]&#xA;,'&quot; + @[User::RefDataName] + &quot; Ref Data Refresh &quot; + @[User::Action] + &quot;' AS [MessageTemplate]&#xA;,'Information' AS [Level]&#xA;,GETUTCDATE() AS [TimeStampUTC]&#xA;,NULL AS [Exception]&#xA;,HOST_NAME() AS [MachineName]&#xA;,'SSIS Loader' AS [ProcessName]&#xA;,NULL AS [ThreadId]&#xA;,'&quot; + @[User::RefDataName]+ &quot;' AS [CallerName]&#xA;,NULL AS [SourceFile]&#xA;,NULL AS [LineNumber]&#xA;,NULL AS [JobId]&#xA;,NULL AS [TaskKey]&quot;&#xA;"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="SqlCommand">
+          <DTS:VariableValue
+            DTS:DataType="8">INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])
+SELECT 
+ 'Org Ref Data Refresh Completed' AS [Message]
+,'Org Ref Data Refresh Completed' AS [MessageTemplate]
+,'Information' AS [Level]
+,GETUTCDATE() AS [TimeStampUTC]
+,NULL AS [Exception]
+,HOST_NAME() AS [MachineName]
+,'SSIS Loader' AS [ProcessName]
+,NULL AS [ThreadId]
+,'Org' AS [CallerName]
+,NULL AS [SourceFile]
+,NULL AS [LineNumber]
+,NULL AS [JobId]
+,NULL AS [TaskKey]</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:PropertyExpression
+        DTS:Name="Name">"SEQ - Process - Log " + @[User::Action]</DTS:PropertyExpression>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ - Process - Log Completed\SQL - Log Completed"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{738a3b9e-aa9f-4ba2-9ab6-2753c2caa0bb}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Log Completed"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="Name">"SQL - Log " + @[User::Action]</DTS:PropertyExpression>
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{74F0C0E1-B294-4D4F-B5D5-E413812FD49C}"
+              SQLTask:SqlStatementSource="INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])&#xA;SELECT &#xA; 'Org Ref Data Refresh Completed' AS [Message]&#xA;,'Org Ref Data Refresh Completed' AS [MessageTemplate]&#xA;,'Information' AS [Level]&#xA;,GETUTCDATE() AS [TimeStampUTC]&#xA;,NULL AS [Exception]&#xA;,HOST_NAME() AS [MachineName]&#xA;,'SSIS Loader' AS [ProcessName]&#xA;,NULL AS [ThreadId]&#xA;,'Org' AS [CallerName]&#xA;,NULL AS [SourceFile]&#xA;,NULL AS [LineNumber]&#xA;,NULL AS [JobId]&#xA;,NULL AS [TaskKey]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SEQ - Process - Log Started"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{25f6a79d-cd37-4b77-8113-ca198519a416}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ - Process - Log Started">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{3f08bdee-7d12-4cf2-807d-dde486cb4251}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Action">
+          <DTS:VariableValue
+            DTS:DataType="8">Started</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{b124fa49-676d-4f18-af7b-b4c2935efb5b}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="Name">
+          <DTS:VariableValue
+            DTS:DataType="8">Log Start</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1d5a5f38-33c6-4923-a42c-40ffc8d7597c}"
+          DTS:EvaluateAsExpression="True"
+          DTS:Expression="&quot;INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])&#xA;SELECT &#xA; '&quot; + @[User::RefDataName] + &quot; Ref Data Refresh &quot; + @[User::Action] + &quot;' AS [Message]&#xA;,'&quot; + @[User::RefDataName] + &quot; Ref Data Refresh &quot; + @[User::Action] + &quot;' AS [MessageTemplate]&#xA;,'Information' AS [Level]&#xA;,GETUTCDATE() AS [TimeStampUTC]&#xA;,NULL AS [Exception]&#xA;,HOST_NAME() AS [MachineName]&#xA;,'SSIS Loader' AS [ProcessName]&#xA;,NULL AS [ThreadId]&#xA;,'&quot; + @[User::RefDataName]+ &quot;' AS [CallerName]&#xA;,NULL AS [SourceFile]&#xA;,NULL AS [LineNumber]&#xA;,NULL AS [JobId]&#xA;,NULL AS [TaskKey]&quot;&#xA;"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="SqlCommand">
+          <DTS:VariableValue
+            DTS:DataType="8">INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])
+SELECT 
+ 'Org Ref Data Refresh Started' AS [Message]
+,'Org Ref Data Refresh Started' AS [MessageTemplate]
+,'Information' AS [Level]
+,GETUTCDATE() AS [TimeStampUTC]
+,NULL AS [Exception]
+,HOST_NAME() AS [MachineName]
+,'SSIS Loader' AS [ProcessName]
+,NULL AS [ThreadId]
+,'Org' AS [CallerName]
+,NULL AS [SourceFile]
+,NULL AS [LineNumber]
+,NULL AS [JobId]
+,NULL AS [TaskKey]</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:PropertyExpression
+        DTS:Name="Name">"SEQ - Process - Log " + @[User::Action]</DTS:PropertyExpression>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ - Process - Log Started\SQL - Log Started"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8bad1a76-3c53-4081-99b8-2cb521f5f167}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Log Started"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="Name">"SQL - Log " + @[User::Action]</DTS:PropertyExpression>
+          <DTS:PropertyExpression
+            DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{74F0C0E1-B294-4D4F-B5D5-E413812FD49C}"
+              SQLTask:SqlStatementSource="INSERT INTO [dbo].[Logs]([Message],[MessageTemplate],[Level],[TimeStampUTC],[Exception],[MachineName],[ProcessName],[ThreadId],[CallerName],[SourceFile],[LineNumber],[JobId],[TaskKey])&#xA;SELECT &#xA; 'Org Ref Data Refresh Started' AS [Message]&#xA;,'Org Ref Data Refresh Started' AS [MessageTemplate]&#xA;,'Information' AS [Level]&#xA;,GETUTCDATE() AS [TimeStampUTC]&#xA;,NULL AS [Exception]&#xA;,HOST_NAME() AS [MachineName]&#xA;,'SSIS Loader' AS [ProcessName]&#xA;,NULL AS [ThreadId]&#xA;,'Org' AS [CallerName]&#xA;,NULL AS [SourceFile]&#xA;,NULL AS [LineNumber]&#xA;,NULL AS [JobId]&#xA;,NULL AS [TaskKey]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\SEQ - Process Data"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
-      DTS:Disabled="True"
       DTS:DTSID="{D88B51B1-6661-4823-B0DD-A8C396BFBCCC}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -745,21 +927,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Delete from - DataGeneration"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Clear Table - DataGeneration"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{9A42B866-C303-446D-9DAB-87E954A79530}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - DataGeneration"
+              DTS:ObjectName="SQL - Clear Table - DataGeneration"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="0">
+              DTS:ThreadHint="2">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{B340E8CB-60FF-45C7-AD37-E4BC32AB8A66}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -768,7 +950,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -783,7 +965,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{61F686A1-387E-46C7-B6CE-118D0A6C875C}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Delete from - DataGeneration"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Clear Table - DataGeneration"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration" />
@@ -3928,21 +4110,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Delete from - Details"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Clear Table - Details"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{4CA2719F-6696-4C83-A085-42A5FC442E1E}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - Details"
+              DTS:ObjectName="SQL - Clear Table - Details"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="1">
+              DTS:ThreadHint="3">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{FBE4C0FC-2284-4AA8-99CB-3DF01A4842CC}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -3951,7 +4133,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -3966,7 +4148,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Details.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{1D9C30E3-9CC7-4A5A-9333-0E5E31F7969F}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Delete from - Details"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Clear Table - Details"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details" />
@@ -4842,13 +5024,11 @@
                               name="Created_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[Modified_On]"
@@ -4937,21 +5117,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Delete from - Funding"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Clear Table - Funding"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{36FD7F98-0A57-43FB-AF1A-29C38C1EF553}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - Funding"
+              DTS:ObjectName="SQL - Clear Table - Funding"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="3">
+              DTS:ThreadHint="0">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{984D34FB-4FC9-4EB9-BE46-C7D665814BA5}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -4960,7 +5140,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -4975,7 +5155,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Funding.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{0F28810F-A00E-4617-9509-1988402341D1}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Delete from - Funding"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Clear Table - Funding"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding" />
@@ -5571,13 +5751,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -5633,21 +5811,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Delete from - HMPP_PostCode"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Clear Table - HMPP_PostCode"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{154C7974-5EDC-4A18-BF6F-66EE20E7E3F7}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - HMPP_PostCode"
+              DTS:ObjectName="SQL - Clear Table - HMPP_PostCode"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="4">
+              DTS:ThreadHint="1">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{8494A217-6015-4EBA-AA1A-C6CFD61AEF8D}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -5656,7 +5834,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -5671,7 +5849,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{A38BF7E8-4E64-4C84-AEEA-B9A3871F9E5A}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Delete from - HMPP_PostCode"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Clear Table - HMPP_PostCode"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode" />
@@ -6267,13 +6445,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -6329,13 +6505,13 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Delete from - HMPP_UOP"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Clear Table - HMPP_UOP"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{D31AF2C2-0992-4365-9315-0725C9AFFAA2}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - HMPP_UOP"
+              DTS:ObjectName="SQL - Clear Table - HMPP_UOP"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
               DTS:ThreadHint="5">
               <DTS:Variables>
@@ -6343,7 +6519,7 @@
                   DTS:CreationName=""
                   DTS:DTSID="{20D73A38-D1FC-490B-B65C-739E655C2E7D}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -6352,7 +6528,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -6367,7 +6543,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{B069A3F8-728D-468E-95AA-4B378EDA92FB}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Delete from - HMPP_UOP"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Clear Table - HMPP_UOP"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP" />
@@ -6377,6 +6553,7 @@
           DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
+          DTS:Disabled="True"
           DTS:DTSID="{72079B7A-1AF8-446D-A4B1-6B0063F23562}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
@@ -6460,7 +6637,12 @@
                           dataType="System.String"
                           description="The SQL command to be executed."
                           name="SqlCommand"
-                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT [UKPRN]  
+FROM 
+(	SELECT [UKPRN] FROM [Core].[ORG_Details]
+  UNION 
+	SELECT [UKPRN] FROM [Core].[Org_PartnerUKPRN]
+) as X</property>
                         <property
                           dataType="System.String"
                           description="The variable that contains the SQL command to be executed."
@@ -6477,7 +6659,7 @@
                           dataType="System.Int32"
                           description="Specifies the mode used to access the database."
                           name="AccessMode"
-                          typeConverter="AccessMode">0</property>
+                          typeConverter="AccessMode">2</property>
                         <property
                           dataType="System.String"
                           description="The mappings between the parameters in the SQL command and variables."
@@ -6977,13 +7159,13 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Delete from - MasterOrganisations"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{7254EC19-EBAF-4658-8607-474C0198C88B}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - MasterOrganisations"
+              DTS:ObjectName="SQL - Clear Table - MasterOrganisations"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
               DTS:ThreadHint="6">
               <DTS:Variables>
@@ -6991,7 +7173,7 @@
                   DTS:CreationName=""
                   DTS:DTSID="{9B987BDD-EB83-4DBD-94E4-D9F2E62AF227}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -7000,7 +7182,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -7015,7 +7197,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{BE34C012-6F14-40E8-904A-3D15878F5D7C}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Delete from - MasterOrganisations"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations" />
@@ -7611,13 +7793,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -7673,21 +7853,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Delete from - PartnerUKPRN"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Clear Table - PartnerUKPRN"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{A39A31BC-0B0D-419E-8C93-E12F6D7380B2}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - PartnerUKPRN"
+              DTS:ObjectName="SQL - Clear Table - PartnerUKPRN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="7">
+              DTS:ThreadHint="4">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{72910A80-809B-42FF-B222-126A8445AD10}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -7696,7 +7876,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -7711,7 +7891,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{D0B2BBEF-C64C-4F00-8A5B-19B76B61D66B}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Delete from - PartnerUKPRN"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Clear Table - PartnerUKPRN"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN" />
@@ -8379,13 +8559,11 @@
                               name="Modified_By" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="EffectiveTo" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
@@ -8402,13 +8580,11 @@
                               name="Status" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[StatusEffectiveFrom]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="StatusEffectiveFrom" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[StatusEffectiveTo]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="StatusEffectiveTo" />
                           </externalMetadataColumns>
                         </input>
@@ -8455,21 +8631,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Delete from - UKPRN_UPIN"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Clear Table - UKPRN_UPIN"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{91E0CC55-2CD5-4A41-984D-7071597E8D1A}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - UKPRN_UPIN"
+              DTS:ObjectName="SQL - Clear Table - UKPRN_UPIN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="8">
+              DTS:ThreadHint="7">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{E54D1BEE-CBBF-4714-A6E1-70C19D2BEC23}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -8478,7 +8654,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -8493,7 +8669,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{B8E13554-B546-48AA-9E19-94F2969CFF51}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Delete from - UKPRN_UPIN"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Clear Table - UKPRN_UPIN"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN" />
@@ -9338,13 +9514,11 @@
                               name="RefDataSchemaName" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[ActivationDate]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="ActivationDate" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[ExpiryDate]"
-                              dataType="wstr"
-                              length="10"
+                              dataType="dbDate"
                               name="ExpiryDate" />
                             <externalMetadataColumn
                               refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
@@ -9401,21 +9575,21 @@
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Delete from - Version"
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Clear Table - Version"
               DTS:CreationName="Microsoft.ExecuteSQLTask"
               DTS:Description="Execute SQL Task"
               DTS:DTSID="{4596DFB4-3C1B-4935-8902-D4C295771175}"
               DTS:ExecutableType="Microsoft.ExecuteSQLTask"
               DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Delete from - Version"
+              DTS:ObjectName="SQL - Clear Table - Version"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="2">
+              DTS:ThreadHint="8">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
                   DTS:DTSID="{C429FC42-52B3-4BDE-AB87-AD2F3A6532C4}"
                   DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;DELETE FROM &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
                   DTS:IncludeInDebugDump="2345"
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
@@ -9424,7 +9598,7 @@
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Delete from - " + @[User::Name]))</DTS:PropertyExpression>
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
               <DTS:PropertyExpression
                 DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
               <DTS:ObjectData>
@@ -9439,7 +9613,7 @@
               DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - Version.PrecedenceConstraints[Constraint]"
               DTS:CreationName=""
               DTS:DTSID="{EA4A67F9-8A7E-4BCE-911B-F5D00FFF8C94}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Delete from - Version"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Clear Table - Version"
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version" />
@@ -9457,6 +9631,22 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\SEQ - Process Data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{205D161F-49E9-42D8-BD46-F02D0A6B7429}"
+      DTS:From="Package\SEQ - Process - Log Started"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SEQ - Stage Data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{4609DD03-F624-40B3-8B1D-6B35A88AB622}"
+      DTS:From="Package\SEQ - Process Data"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SEQ - Process - Log Completed" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -9471,6 +9661,28 @@
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="240,42"
+          Id="Package\SEQ - Process - Log Completed\SQL - Log Completed"
+          TopLeft="20.5,12.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="283,69"
+          Size="283,112"
+          Id="Package\SEQ - Process - Log Completed"
+          TopLeft="2002.09523809524,477.960317460316" />
+        <NodeLayout
+          Size="240,42"
+          Id="Package\SEQ - Process - Log Started\SQL - Log Started"
+          TopLeft="20.5,12.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="283,69"
+          Size="283,112"
+          Id="Package\SEQ - Process - Log Started"
+          TopLeft="1647.20634920636,176.904761904762" />
+        <NodeLayout
           Size="285,44"
           Id="Package\SEQ - Process Data\SEQ - Process - Process Data\SQL - Run - Process Data"
           TopLeft="5.25,3.75" />
@@ -9484,17 +9696,17 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="394,166"
-          Size="394,209"
+          PanelSize="394,123"
+          Size="394,166"
           Id="Package\SEQ - Process Data"
-          TopLeft="2341.76190476191,1053.28571428572" />
+          TopLeft="1484.19047619049,452.523809523811" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Delete from - DataGeneration"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\SQL - Clear Table - DataGeneration"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration.PrecedenceConstraints[Constraint]"
@@ -9524,14 +9736,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration"
-          TopLeft="322.857142857143,13" />
+          TopLeft="13.238095238095,4.26190476190538" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Delete from - Details"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - Details\SQL - Clear Table - Details"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - Details.PrecedenceConstraints[Constraint]"
@@ -9561,14 +9773,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Details"
-          TopLeft="667.238095238095,13" />
+          TopLeft="354.952380952381,4.26190476190538" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Delete from - Funding"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - Funding\SQL - Clear Table - Funding"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - Funding.PrecedenceConstraints[Constraint]"
@@ -9598,14 +9810,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Funding"
-          TopLeft="993.214285714285,10.928571428572" />
+          TopLeft="696.666666666667,4.26190476190538" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Delete from - HMPP_PostCode"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\SQL - Clear Table - HMPP_PostCode"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode.PrecedenceConstraints[Constraint]"
@@ -9635,14 +9847,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode"
-          TopLeft="6.75,196.571428571429" />
+          TopLeft="13.238095238095,188.476190476191" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Delete from - HMPP_UOP"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\SQL - Clear Table - HMPP_UOP"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP.PrecedenceConstraints[Constraint]"
@@ -9672,14 +9884,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP"
-          TopLeft="322.857142857143,196.571428571429" />
+          TopLeft="354.952380952381,188.476190476191" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="270,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Delete from - MasterOrganisations"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations.PrecedenceConstraints[Constraint]"
@@ -9709,14 +9921,14 @@
           PanelSize="300,123"
           Size="300,166"
           Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations"
-          TopLeft="5.71428571428544,13" />
+          TopLeft="696.666666666667,369.904761904762" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Delete from - PartnerUKPRN"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\SQL - Clear Table - PartnerUKPRN"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN.PrecedenceConstraints[Constraint]"
@@ -9746,14 +9958,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN"
-          TopLeft="667.238095238095,196.571428571429" />
+          TopLeft="696.666666666667,188.476190476191" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Delete from - UKPRN_UPIN"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\SQL - Clear Table - UKPRN_UPIN"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN.PrecedenceConstraints[Constraint]"
@@ -9783,14 +9995,14 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN"
-          TopLeft="998,196.571428571429" />
+          TopLeft="13.238095238095,369.904761904762" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version"
           TopLeft="35,74.5" />
         <NodeLayout
           Size="289,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Delete from - Version"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - Version\SQL - Clear Table - Version"
           TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\SEQ - Stage Data\SEQ - Stage - Version.PrecedenceConstraints[Constraint]"
@@ -9820,40 +10032,84 @@
           PanelSize="300,125"
           Size="300,168"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Version"
-          TopLeft="5.71428571428547,388.285714285715" />
+          TopLeft="354.952380952381,369.904761904762" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="1304,632"
-          Size="1304,675"
+          PanelSize="1033,593"
+          Size="1033,636"
           Id="Package\SEQ - Stage Data"
-          TopLeft="969,961.57142857143" />
+          TopLeft="301.000000000004,115.761904761906" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="2273,1299.07142857143">
+          TopLeft="1334,536.976190476192">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="68.76190476191,-141.28571428571"
+              EndConnector="150.190476190483,0"
               Start="0,0"
-              End="61.26190476191,-141.28571428571">
+              End="142.690476190483,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="30.380952380955,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="30.380952380955,0"
-                    Point2="34.380952380955,0"
-                    Point3="34.380952380955,-4" />
+                    End="142.690476190483,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="1647.20634920636,232.904761904762">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-313.206349206361,96.1904761904765"
+              Start="0,0"
+              End="-305.706349206361,96.1904761904765">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
                   <mssgle:LineSegment
-                    End="34.380952380955,-137.28571428571" />
+                    End="-183.452231582728,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="34.380952380955,-137.28571428571"
-                    Point2="34.380952380955,-141.28571428571"
-                    Point3="38.380952380955,-141.28571428571" />
+                    Point1="-183.452231582728,0"
+                    Point2="-187.452231582728,0"
+                    Point3="-187.452231582728,4" />
                   <mssgle:LineSegment
-                    End="61.26190476191,-141.28571428571" />
+                    End="-187.452231582728,92.1904761904765" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-187.452231582728,92.1904761904765"
+                    Point2="-187.452231582728,96.1904761904765"
+                    Point3="-191.452231582728,96.1904761904765" />
+                  <mssgle:LineSegment
+                    End="-305.706349206361,96.1904761904765" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="1878.19047619049,534.742063492064">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="123.904761904757,0"
+              Start="0,0"
+              End="116.404761904757,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="116.404761904757,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

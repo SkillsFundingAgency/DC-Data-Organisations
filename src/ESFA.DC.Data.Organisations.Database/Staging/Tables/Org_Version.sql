@@ -12,6 +12,9 @@
 	[Created_By] NVARCHAR(100) NOT NULL,
 	[Modified_On] DATETIME NOT NULL,
 	[Modified_By] NVARCHAR(100) NOT NULL,
-    CONSTRAINT [PK_Org_Version] PRIMARY KEY CLUSTERED ([MajorNumber], [MinorNumber], [MaintenanceNumber])
+    CONSTRAINT [PK_Staging_Staging_Org_Version] PRIMARY KEY CLUSTERED ([MajorNumber], [MinorNumber], [MaintenanceNumber])
 );
+
+GO
+GRANT ALTER ON OBJECT::Staging.Org_Version TO [Org_RW_User];
 
