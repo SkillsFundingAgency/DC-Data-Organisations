@@ -1,0 +1,1 @@
+﻿dotnet.exe ef dbcontext scaffold "Server=(localdb)\\MSSQLLocalDB;Database=Org;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -c OrganisationsContext --schema dbo --force 

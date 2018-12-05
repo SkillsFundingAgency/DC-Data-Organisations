@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.13.0</Version>
+        <Authors>DC</Authors>
+        <Company>ESFA</Company>
+        <PackageLicenseUrl>https://github.com/SkillsFundingAgency/DC-Data-Organisation/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/SkillsFundingAgency/DC-Data-Organisation</PackageProjectUrl>
+        <Description>Org Reference Data Model Project.</Description>
+        <Copyright>Copyright 2018</Copyright>
+        <PackageTags>Org Model Data Database</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    </ItemGroup>
+</Project>
