@@ -6,6 +6,7 @@ namespace ESFA.DC.Data.Organisations.Model
     {
         public MasterOrganisations()
         {
+            ConditionOfFundingRemoval = new HashSet<ConditionOfFundingRemoval>();
             OrgFunding = new HashSet<OrgFunding>();
             OrgHmppPostcode = new HashSet<OrgHmppPostcode>();
             OrgHmppUop = new HashSet<OrgHmppUop>();
@@ -16,6 +17,7 @@ namespace ESFA.DC.Data.Organisations.Model
         public long Ukprn { get; set; }
 
         public virtual OrgDetails OrgDetails { get; set; }
+        public virtual ICollection<ConditionOfFundingRemoval> ConditionOfFundingRemoval { get; set; }
         public virtual ICollection<OrgFunding> OrgFunding { get; set; }
         public virtual ICollection<OrgHmppPostcode> OrgHmppPostcode { get; set; }
         public virtual ICollection<OrgHmppUop> OrgHmppUop { get; set; }
@@ -23,3 +25,6 @@ namespace ESFA.DC.Data.Organisations.Model
         public virtual ICollection<OrgUkprnUpin> OrgUkprnUpin { get; set; }
     }
 }
+
+
+

@@ -15,6 +15,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
         {
         }
 
+        public virtual DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemoval { get; set; }
         public virtual DbSet<MasterOrganisations> MasterOrganisations { get; set; }
         public virtual DbSet<OrgDataGeneration> OrgDataGeneration { get; set; }
         public virtual DbSet<OrgDetails> OrgDetails { get; set; }
@@ -30,13 +31,34 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Org;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(local);Database=Org;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
+            modelBuilder.Entity<ConditionOfFundingRemoval>(entity =>
+            {
+                entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom });
+
+                entity.Property(e => e.Ukprn).HasColumnName("UKPRN");
+
+                entity.Property(e => e.EffectiveFrom).HasColumnType("date");
+
+                entity.Property(e => e.CoFremoval)
+                    .HasColumnName("CoFRemoval")
+                    .HasColumnType("decimal(9, 2)");
+
+                entity.Property(e => e.EffectiveTo).HasColumnType("date");
+
+                entity.HasOne(d => d.UkprnNavigation)
+                    .WithMany(p => p.ConditionOfFundingRemoval)
+                    .HasForeignKey(d => d.Ukprn)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ConditionOfFundingRemoval_OrgDetails_UKPRN");
+            });
 
             modelBuilder.Entity<MasterOrganisations>(entity =>
             {
@@ -73,7 +95,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgDetails>(entity =>
             {
                 entity.HasKey(e => e.Ukprn)
-                    .HasName("PK__Org_Deta__50F26B71F7C05D9C");
+                    .HasName("PK__Org_Deta__50F26B71D826990F");
 
                 entity.ToTable("Org_Details");
 
@@ -189,7 +211,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgFunding>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.FundingFactorType, e.FundingFactor, e.EffectiveFrom })
-                    .HasName("PK__Org_Fund__CB23E3DE4E328440");
+                    .HasName("PK__Org_Fund__CB23E3DE22B59429");
 
                 entity.ToTable("Org_Funding");
 
@@ -243,7 +265,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgHmppPostcode>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.HmpppostCode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__3BF64923E255257F");
+                    .HasName("PK__Org_HMPP__3BF64923149A3B7C");
 
                 entity.ToTable("Org_HMPP_Postcode");
 
@@ -285,7 +307,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgHmppUop>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Uopcode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__8CC5E974E4F1CA56");
+                    .HasName("PK__Org_HMPP__8CC5E974226ACDBC");
 
                 entity.ToTable("Org_HMPP_UOP");
 
@@ -327,7 +349,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgPartnerUkprn>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom })
-                    .HasName("PK__Org_Part__175AE8806780BE40");
+                    .HasName("PK__Org_Part__175AE88065E0E4E2");
 
                 entity.ToTable("Org_PartnerUKPRN");
 
@@ -369,7 +391,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgUkprnUpin>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Upin, e.EffectiveFrom })
-                    .HasName("PK__Org_UKPR__8FE2958920F488BA");
+                    .HasName("PK__Org_UKPR__8FE295895901B725");
 
                 entity.ToTable("Org_UKPRN_UPIN");
 

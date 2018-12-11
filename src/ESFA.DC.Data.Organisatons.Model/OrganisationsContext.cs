@@ -14,6 +14,7 @@ namespace ESFA.DC.Data.Organisations.Model
         {
         }
 
+        public virtual DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemoval { get; set; }
         public virtual DbSet<MasterOrganisations> MasterOrganisations { get; set; }
         public virtual DbSet<OrgDataGeneration> OrgDataGeneration { get; set; }
         public virtual DbSet<OrgDetails> OrgDetails { get; set; }
@@ -36,6 +37,27 @@ namespace ESFA.DC.Data.Organisations.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
+            modelBuilder.Entity<ConditionOfFundingRemoval>(entity =>
+            {
+                entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom });
+
+                entity.Property(e => e.Ukprn).HasColumnName("UKPRN");
+
+                entity.Property(e => e.EffectiveFrom).HasColumnType("date");
+
+                entity.Property(e => e.CoFremoval)
+                    .HasColumnName("CoFRemoval")
+                    .HasColumnType("decimal(9, 2)");
+
+                entity.Property(e => e.EffectiveTo).HasColumnType("date");
+
+                entity.HasOne(d => d.UkprnNavigation)
+                    .WithMany(p => p.ConditionOfFundingRemoval)
+                    .HasForeignKey(d => d.Ukprn)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ConditionOfFundingRemoval_OrgDetails_UKPRN");
+            });
 
             modelBuilder.Entity<MasterOrganisations>(entity =>
             {
