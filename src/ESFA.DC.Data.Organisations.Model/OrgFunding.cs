@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace ESFA.DC.Data.Organisations.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
     public partial class OrgFunding
     {
@@ -18,6 +19,6 @@ namespace ESFA.DC.Data.Organisations.Model
         public DateTime ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
 
-        public virtual MasterOrganisations UkprnNavigation { get; set; }
+        public virtual MasterOrganisation UkprnNavigation { get; set; }
     }
 }

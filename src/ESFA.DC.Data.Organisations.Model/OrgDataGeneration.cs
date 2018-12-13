@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace ESFA.DC.Data.Organisations.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
     public partial class OrgDataGeneration
     {
