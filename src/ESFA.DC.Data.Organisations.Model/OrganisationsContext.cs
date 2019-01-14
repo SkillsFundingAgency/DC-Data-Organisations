@@ -15,6 +15,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
         {
         }
 
+        public virtual DbSet<CampusIdentifier> CampusIdentifiers { get; set; }
         public virtual DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemovals { get; set; }
         public virtual DbSet<MasterOrganisation> MasterOrganisations { get; set; }
         public virtual DbSet<OrgDataGeneration> OrgDataGenerations { get; set; }
@@ -38,6 +39,27 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
+            modelBuilder.Entity<CampusIdentifier>(entity =>
+            {
+                entity.HasKey(e => new { e.MasterUkprn, e.CampusIdentifier1, e.EffectiveFrom })
+                    .HasName("PK_dbo_CampusIdentifier");
+
+                entity.ToTable("CampusIdentifier");
+
+                entity.Property(e => e.MasterUkprn).HasColumnName("MasterUKPRN");
+
+                entity.Property(e => e.CampusIdentifier1)
+                    .HasColumnName("CampusIdentifier")
+                    .HasMaxLength(8)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EffectiveFrom).HasColumnType("date");
+
+                entity.Property(e => e.EffectiveTo).HasColumnType("date");
+
+                entity.Property(e => e.OriginalUkprn).HasColumnName("OriginalUKPRN");
+            });
 
             modelBuilder.Entity<ConditionOfFundingRemoval>(entity =>
             {
@@ -97,7 +119,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgDetail>(entity =>
             {
                 entity.HasKey(e => e.Ukprn)
-                    .HasName("PK__Org_Deta__50F26B7121D635DE");
+                    .HasName("PK__Org_Deta__50F26B71726AAB39");
 
                 entity.ToTable("Org_Details");
 
@@ -213,7 +235,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgFunding>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.FundingFactorType, e.FundingFactor, e.EffectiveFrom })
-                    .HasName("PK__Org_Fund__CB23E3DECCCFA9DB");
+                    .HasName("PK__Org_Fund__CB23E3DE69EF4DD2");
 
                 entity.ToTable("Org_Funding");
 
@@ -267,7 +289,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgHmppPostcode>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.HmpppostCode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__3BF649239C0E41DD");
+                    .HasName("PK__Org_HMPP__3BF6492397B2744A");
 
                 entity.ToTable("Org_HMPP_Postcode");
 
@@ -309,7 +331,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgHmppUop>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Uopcode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__8CC5E97464EF33F4");
+                    .HasName("PK__Org_HMPP__8CC5E9748D74D74D");
 
                 entity.ToTable("Org_HMPP_UOP");
 
@@ -351,7 +373,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgPartnerUkprn>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom })
-                    .HasName("PK__Org_Part__175AE8809C165850");
+                    .HasName("PK__Org_Part__175AE880A3434BB1");
 
                 entity.ToTable("Org_PartnerUKPRN");
 
@@ -393,7 +415,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model
             modelBuilder.Entity<OrgUkprnUpin>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Upin, e.EffectiveFrom })
-                    .HasName("PK__Org_UKPR__8FE295893ADBB205");
+                    .HasName("PK__Org_UKPR__8FE295894C35D638");
 
                 entity.ToTable("Org_UKPRN_UPIN");
 
