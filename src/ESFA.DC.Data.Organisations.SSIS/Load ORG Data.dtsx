@@ -12,8 +12,8 @@
   DTS:ObjectName="Load ORG Data"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="130"
-  DTS:VersionGUID="{6EA33799-F0F8-4E48-B1F5-A7D6E145CDE0}">
+  DTS:VersionBuild="139"
+  DTS:VersionGUID="{A83A3146-80B2-4310-9192-877F070837BD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,18 +26,26 @@
         DTS:Name="ConnectionString">@[$Project::AppLogConnectionString_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"></DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Source Connection Manager]"
+      DTS:refId="Package.ConnectionManagers[Source CampusIdentifier Connection Manager]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8376DADB-1CBB-4752-8A6E-48F499176850}"
+      DTS:ObjectName="Source CampusIdentifier Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::SourceCampusIdentifierConnectionManager_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source Organisations Connection Manager]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{D6AE7CAD-E7AC-4A8E-9CBA-CAB85C74E0F3}"
-      DTS:ObjectName="Source Connection Manager">
+      DTS:ObjectName="Source Organisations Connection Manager">
       <DTS:PropertyExpression
         DTS:Name="ConnectionString">@[$Project::SourceConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
@@ -54,11 +62,7 @@
         DTS:Name="ConnectionString">@[$Project::TargetConnectionManager_ConnectionString]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"></DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -362,6 +366,514 @@ SELECT
       </DTS:Variables>
       <DTS:Executables>
         <DTS:Executable
+          DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{1c99d9f4-02e5-45c3-87bd-c7014b746e5b}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SEQ - Stage - CampusIdentifier">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:DTSID="{e3801673-a20e-4a06-9b2d-e8e603ebfd79}"
+              DTS:IncludeInDebugDump="2345"
+              DTS:Namespace="User"
+              DTS:ObjectName="Name">
+              <DTS:VariableValue
+                DTS:DataType="8">CampusIdentifier</DTS:VariableValue>
+            </DTS:Variable>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:DTSID="{3a59ab44-27e3-4100-a9fc-e6abf45fd14c}"
+              DTS:EvaluateAsExpression="True"
+              DTS:Expression="&quot;SELECT * FROM [dbo].[&quot; + @[User::Name] +&quot;] &quot;"
+              DTS:IncludeInDebugDump="2345"
+              DTS:Namespace="User"
+              DTS:ObjectName="SourceObjectSelectStatement">
+              <DTS:VariableValue
+                DTS:DataType="8">SELECT * FROM [dbo].[CampusIdentifier] </DTS:VariableValue>
+            </DTS:Variable>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:DTSID="{ce367da2-aa88-4d72-b9b3-f9912b39c7f2}"
+              DTS:EvaluateAsExpression="True"
+              DTS:Expression="&quot;[&quot; + @[User::StagingSchema] + &quot;].[&quot; + @[User::Name] +&quot;]&quot;"
+              DTS:IncludeInDebugDump="2345"
+              DTS:Namespace="User"
+              DTS:ObjectName="StagingObjectName">
+              <DTS:VariableValue
+                DTS:DataType="8">[Staging].[CampusIdentifier]</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:PropertyExpression
+            DTS:Name="Name">LTRIM(RTRIM( "SEQ - Stage - " + @[User::Name]))</DTS:PropertyExpression>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{d4dd5897-ce8b-45b2-b3c6-0b943fe2bae2}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="DFT - CampusIdentifier"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:PropertyExpression
+                DTS:Name="Name">LTRIM(RTRIM("DFT - " + @[User::Name]))</DTS:PropertyExpression>
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion"
+                      componentClassID="Microsoft.DataConvert"
+                      contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                      description="Data Conversion"
+                      name="Data Conversion"
+                      usesDispositions="true">
+                      <inputs>
+                        <input
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Inputs[Data Conversion Input]"
+                          name="Data Conversion Input">
+                          <externalMetadataColumns />
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Output]"
+                          exclusionGroup="1"
+                          name="Data Conversion Output"
+                          synchronousInputId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Inputs[Data Conversion Input]">
+                          <externalMetadataColumns />
+                        </output>
+                        <output
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="Data Conversion Error Output"
+                          synchronousInputId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Inputs[Data Conversion Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="Source Data"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable">User::SourceObjectName</property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable">User::SourceObjectSelectStatement</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Source CampusIdentifier Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source CampusIdentifier Connection Manager]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveFrom]"
+                              dataType="dbDate"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EffectiveFrom]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveFrom]"
+                              name="EffectiveFrom"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveTo]"
+                              dataType="dbDate"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EffectiveTo]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveTo]"
+                              name="EffectiveTo"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[CampusIdentifier]"
+                              codePage="1252"
+                              dataType="str"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[CampusIdentifier]"
+                              length="8"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[CampusIdentifier]"
+                              name="CampusIdentifier"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[MasterUKPRN]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[MasterUKPRN]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[MasterUKPRN]"
+                              name="MasterUKPRN"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[OriginalUKPRN]"
+                              dataType="i8"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OriginalUKPRN]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[OriginalUKPRN]"
+                              name="OriginalUKPRN"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EffectiveFrom]"
+                              dataType="dbDate"
+                              name="EffectiveFrom" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EffectiveTo]"
+                              dataType="dbDate"
+                              name="EffectiveTo" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[CampusIdentifier]"
+                              codePage="1252"
+                              dataType="str"
+                              length="8"
+                              name="CampusIdentifier" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[MasterUKPRN]"
+                              dataType="i8"
+                              name="MasterUKPRN" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OriginalUKPRN]"
+                              dataType="i8"
+                              name="OriginalUKPRN" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[CampusIdentifier]"
+                              codePage="1252"
+                              dataType="str"
+                              length="8"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[CampusIdentifier]"
+                              name="CampusIdentifier" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[MasterUKPRN]"
+                              dataType="i8"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[MasterUKPRN]"
+                              name="MasterUKPRN" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[OriginalUKPRN]"
+                              dataType="i8"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[OriginalUKPRN]"
+                              name="OriginalUKPRN" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[EffectiveFrom]"
+                              dataType="dbDate"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[EffectiveFrom]"
+                              name="EffectiveFrom" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[EffectiveTo]"
+                              dataType="dbDate"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Error Output].Columns[EffectiveTo]"
+                              name="EffectiveTo" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="Target Data"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[Core].[ORG_SupersedingFrameworks]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable">User::StagingObjectName</property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">4</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">true</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Target Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Target Connection Manager]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].Columns[EffectiveFrom]"
+                              cachedDataType="dbDate"
+                              cachedName="EffectiveFrom"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveFrom]" />
+                            <inputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].Columns[EffectiveTo]"
+                              cachedDataType="dbDate"
+                              cachedName="EffectiveTo"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[EffectiveTo]" />
+                            <inputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].Columns[MasterUKPRN]"
+                              cachedDataType="i8"
+                              cachedName="MasterUKPRN"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[MasterUKPRN]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[MasterUKPRN]" />
+                            <inputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].Columns[OriginalUKPRN]"
+                              cachedDataType="i8"
+                              cachedName="OriginalUKPRN"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[OriginalUKPRN]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[OriginalUKPRN]" />
+                            <inputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].Columns[CampusIdentifier]"
+                              cachedCodepage="1252"
+                              cachedDataType="str"
+                              cachedLength="8"
+                              cachedName="CampusIdentifier"
+                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[CampusIdentifier]"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output].Columns[CampusIdentifier]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveFrom]"
+                              dataType="dbDate"
+                              name="EffectiveFrom" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveTo]"
+                              dataType="dbDate"
+                              name="EffectiveTo" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[MasterUKPRN]"
+                              dataType="i8"
+                              name="MasterUKPRN" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[CampusIdentifier]"
+                              codePage="1252"
+                              dataType="str"
+                              length="8"
+                              name="CampusIdentifier" />
+                            <externalMetadataColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[OriginalUKPRN]"
+                              dataType="i8"
+                              name="OriginalUKPRN" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier.Paths[Data Conversion Output]"
+                      endId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data.Inputs[OLE DB Destination Input]"
+                      name="Data Conversion Output"
+                      startId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Outputs[Data Conversion Output]" />
+                    <path
+                      refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier.Paths[OLE DB Source Output]"
+                      endId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion.Inputs[Data Conversion Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\SQL - Clear Table - CampusIdentifier"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{7588f394-7c68-4315-9c1c-e104d2377679}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="SQL - Clear Table - CampusIdentifier"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="3">
+              <DTS:Variables>
+                <DTS:Variable
+                  DTS:CreationName=""
+                  DTS:DTSID="{d52d21a6-526f-4522-8f37-028b59cd9eca}"
+                  DTS:EvaluateAsExpression="True"
+                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
+                  DTS:IncludeInDebugDump="2345"
+                  DTS:Namespace="User"
+                  DTS:ObjectName="SqlCommand">
+                  <DTS:VariableValue
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[CampusIdentifier];</DTS:VariableValue>
+                </DTS:Variable>
+              </DTS:Variables>
+              <DTS:PropertyExpression
+                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
+              <DTS:PropertyExpression
+                DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[CampusIdentifier];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{e90425e6-9b5a-4647-afc0-c30b365ce9aa}"
+              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\SQL - Clear Table - CampusIdentifier"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
           DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
@@ -606,8 +1118,8 @@ SELECT
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -935,7 +1447,7 @@ SELECT
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - DataGeneration"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="2">
+              DTS:ThreadHint="4">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -946,7 +1458,7 @@ SELECT
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_DataGeneration];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_DataGeneration];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -956,7 +1468,7 @@ SELECT
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_DataGeneration];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_DataGeneration];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -1914,8 +2426,8 @@ SELECT
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -4118,7 +4630,7 @@ SELECT
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - Details"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="3">
+              DTS:ThreadHint="5">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -4129,7 +4641,7 @@ SELECT
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_Details];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_Details];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -4139,7 +4651,7 @@ SELECT
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_Details];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_Details];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -4537,8 +5049,8 @@ SELECT
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - Funding\DFT - Funding\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -5125,7 +5637,7 @@ SELECT
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - Funding"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="0">
+              DTS:ThreadHint="6">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -5136,7 +5648,7 @@ SELECT
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[Org_Funding];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[Org_Funding];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -5146,7 +5658,7 @@ SELECT
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[Org_Funding];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[Org_Funding];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -5406,8 +5918,8 @@ SELECT
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_PostCode\DFT - HMPP_PostCode\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -5819,7 +6331,7 @@ SELECT
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - HMPP_PostCode"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="1">
+              DTS:ThreadHint="7">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -5830,7 +6342,7 @@ SELECT
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_HMPP_PostCode];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_HMPP_PostCode];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -5840,7 +6352,7 @@ SELECT
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_HMPP_PostCode];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_HMPP_PostCode];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -6100,8 +6612,8 @@ SELECT
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -6513,7 +7025,7 @@ SELECT
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - HMPP_UOP"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="5">
+              DTS:ThreadHint="2">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -6524,7 +7036,7 @@ SELECT
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_HMPP_UOP];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_HMPP_UOP];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -6534,7 +7046,7 @@ SELECT
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_HMPP_UOP];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_HMPP_UOP];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -6547,660 +7059,6 @@ SELECT
               DTS:LogicalAnd="True"
               DTS:ObjectName="Constraint"
               DTS:To="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP" />
-          </DTS:PrecedenceConstraints>
-        </DTS:Executable>
-        <DTS:Executable
-          DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations"
-          DTS:CreationName="STOCK:SEQUENCE"
-          DTS:Description="Sequence Container"
-          DTS:Disabled="True"
-          DTS:DTSID="{72079B7A-1AF8-446D-A4B1-6B0063F23562}"
-          DTS:ExecutableType="STOCK:SEQUENCE"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="SEQ - Stage - MasterOrganisations">
-          <DTS:Variables>
-            <DTS:Variable
-              DTS:CreationName=""
-              DTS:DTSID="{ADD42C85-EA24-4A52-9DE0-B6927F018F09}"
-              DTS:IncludeInDebugDump="2345"
-              DTS:Namespace="User"
-              DTS:ObjectName="Name">
-              <DTS:VariableValue
-                DTS:DataType="8">MasterOrganisations</DTS:VariableValue>
-            </DTS:Variable>
-            <DTS:Variable
-              DTS:CreationName=""
-              DTS:DTSID="{9393F155-A7A1-4C38-A47C-28FFF7F587DF}"
-              DTS:EvaluateAsExpression="True"
-              DTS:Expression="&quot;SELECT * FROM [&quot; + @[User::SourceSchema] + &quot;].[&quot; + @[User::Name] +&quot;] &quot; +  @[User::SourceSqlFilter]"
-              DTS:IncludeInDebugDump="2345"
-              DTS:Namespace="User"
-              DTS:ObjectName="SourceObjectSelectStatement">
-              <DTS:VariableValue
-                DTS:DataType="8">SELECT * FROM [Core].[MasterOrganisations] </DTS:VariableValue>
-            </DTS:Variable>
-            <DTS:Variable
-              DTS:CreationName=""
-              DTS:DTSID="{3FB33294-232F-4B32-ACE1-7EA5EE075A0B}"
-              DTS:EvaluateAsExpression="True"
-              DTS:Expression="&quot;[&quot; + @[User::StagingSchema] + &quot;].[&quot; + @[User::Name] +&quot;]&quot;"
-              DTS:IncludeInDebugDump="2345"
-              DTS:Namespace="User"
-              DTS:ObjectName="StagingObjectName">
-              <DTS:VariableValue
-                DTS:DataType="8">[Staging].[MasterOrganisations]</DTS:VariableValue>
-            </DTS:Variable>
-          </DTS:Variables>
-          <DTS:PropertyExpression
-            DTS:Name="Name">LTRIM(RTRIM( "SEQ - Stage - " + @[User::Name]))</DTS:PropertyExpression>
-          <DTS:Executables>
-            <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations"
-              DTS:CreationName="Microsoft.Pipeline"
-              DTS:Description="Data Flow Task"
-              DTS:DTSID="{A2750E5B-E368-4CBE-8A76-EDB458F95FA1}"
-              DTS:ExecutableType="Microsoft.Pipeline"
-              DTS:LocaleID="-1"
-              DTS:ObjectName="DFT - MasterOrganisations"
-              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-              <DTS:Variables />
-              <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("DFT - " + @[User::Name]))</DTS:PropertyExpression>
-              <DTS:ObjectData>
-                <pipeline
-                  defaultBufferMaxRows="100000"
-                  engineThreads="25"
-                  version="1">
-                  <components>
-                    <component
-                      refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data"
-                      componentClassID="Microsoft.OLEDBSource"
-                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-                      description="OLE DB Source"
-                      name="Source Data"
-                      usesDispositions="true"
-                      version="7">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                          name="CommandTimeout">0</property>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the name of the database object used to open a rowset."
-                          name="OpenRowset">[Core].[ORG_Details]</property>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the variable that contains the name of the database object used to open a rowset."
-                          name="OpenRowsetVariable">User::SourceObjectName</property>
-                        <property
-                          dataType="System.String"
-                          description="The SQL command to be executed."
-                          name="SqlCommand"
-                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT [UKPRN]  
-FROM 
-(	SELECT [UKPRN] FROM [Core].[ORG_Details]
-  UNION 
-	SELECT [UKPRN] FROM [Core].[Org_PartnerUKPRN]
-) as X</property>
-                        <property
-                          dataType="System.String"
-                          description="The variable that contains the SQL command to be executed."
-                          name="SqlCommandVariable">User::SourceObjectSelectStatement</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the column code page to use when code page information is unavailable from the data source."
-                          name="DefaultCodePage">1252</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Forces the use of the DefaultCodePage property value when describing character data."
-                          name="AlwaysUseDefaultCodePage">false</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the mode used to access the database."
-                          name="AccessMode"
-                          typeConverter="AccessMode">2</property>
-                        <property
-                          dataType="System.String"
-                          description="The mappings between the parameters in the SQL command and variables."
-                          name="ParameterMapping"></property>
-                      </properties>
-                      <connections>
-                        <connection
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
-                          description="The OLE DB runtime connection used to access the database."
-                          name="OleDbConnection" />
-                      </connections>
-                      <outputs>
-                        <output
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output]"
-                          name="OLE DB Source Output">
-                          <outputColumns>
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].Columns[UKPRN]"
-                              dataType="i8"
-                              errorOrTruncationOperation="Conversion"
-                              errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[UKPRN]"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].Columns[UKPRN]"
-                              name="UKPRN"
-                              truncationRowDisposition="FailComponent" />
-                          </outputColumns>
-                          <externalMetadataColumns
-                            isUsed="True">
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[UKPRN]"
-                              dataType="i8"
-                              name="UKPRN" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Name]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="Name" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OrganisationCode]"
-                              codePage="1252"
-                              dataType="str"
-                              length="50"
-                              name="OrganisationCode" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[SubLocation]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="SubLocation" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Location]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="Location" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Street]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="Street" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Town]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="Town" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Locality]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="Locality" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Postcode]"
-                              codePage="1252"
-                              dataType="str"
-                              length="15"
-                              name="Postcode" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[ExternalData]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="ExternalData" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[PhaseEduc]"
-                              codePage="1252"
-                              dataType="str"
-                              length="9"
-                              name="PhaseEduc" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[GovOffReg]"
-                              codePage="1252"
-                              dataType="str"
-                              length="13"
-                              name="GovOffReg" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LegalOrgType]"
-                              codePage="1252"
-                              dataType="str"
-                              length="50"
-                              name="LegalOrgType" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Status]"
-                              codePage="1252"
-                              dataType="str"
-                              length="50"
-                              name="Status" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[StatusExtended]"
-                              codePage="1252"
-                              dataType="str"
-                              length="75"
-                              name="StatusExtended" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[ThirdSector]"
-                              dataType="i4"
-                              name="ThirdSector" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[AccERGFold]"
-                              dataType="i4"
-                              name="AccERGFold" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[ContAppsTrainAgncy]"
-                              dataType="i4"
-                              name="ContAppsTrainAgncy" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[DanceDramaAward]"
-                              dataType="i4"
-                              name="DanceDramaAward" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[DirectFund]"
-                              dataType="i4"
-                              name="DirectFund" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EmpOnlyTrain]"
-                              dataType="i4"
-                              name="EmpOnlyTrain" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[IndepOrg]"
-                              dataType="i4"
-                              name="IndepOrg" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[IssueAuth]"
-                              dataType="i4"
-                              name="IssueAuth" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LLDDIndepSpec]"
-                              dataType="i4"
-                              name="LLDDIndepSpec" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[NatSkillsAcademy]"
-                              dataType="i4"
-                              name="NatSkillsAcademy" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[PotThirdSector]"
-                              dataType="i4"
-                              name="PotThirdSector" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[NASEmpUnit]"
-                              dataType="i4"
-                              name="NASEmpUnit" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[School6Form]"
-                              dataType="i4"
-                              name="School6Form" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[TertiaryColl]"
-                              dataType="i4"
-                              name="TertiaryColl" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OFSTEDEffect]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="OFSTEDEffect" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OFSTED_AchStnd]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="OFSTED_AchStnd" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[DfEEstabNum]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="DfEEstabNum" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EduBLocAuthSchEst]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="EduBLocAuthSchEst" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EdubaseURN]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="EdubaseURN" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LEACode]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="LEACode" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LocalAuthCode]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="LocalAuthCode" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LongTermResid]"
-                              dataType="i4"
-                              name="LongTermResid" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OfstedCareStds]"
-                              dataType="i4"
-                              name="OfstedCareStds" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OFSTEDNonEduBURN]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="OFSTEDNonEduBURN" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[SpecialResources]"
-                              dataType="i4"
-                              name="SpecialResources" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[StatryHighAge]"
-                              dataType="i4"
-                              name="StatryHighAge" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[StatryLowAge]"
-                              dataType="i4"
-                              name="StatryLowAge" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OFSTEDRep]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="OFSTEDRep" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[OFSTEDInsp]"
-                              codePage="1252"
-                              dataType="str"
-                              length="250"
-                              name="OFSTEDInsp" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[UKLearnProv]"
-                              dataType="i4"
-                              name="UKLearnProv" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[AgencyTrainProv]"
-                              dataType="i4"
-                              name="AgencyTrainProv" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[FundBody]"
-                              dataType="i4"
-                              name="FundBody" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[EducProv]"
-                              dataType="i4"
-                              name="EducProv" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[LocalAuthority]"
-                              dataType="i4"
-                              name="LocalAuthority" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[RegCompany]"
-                              dataType="i4"
-                              name="RegCompany" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[RegCharity]"
-                              dataType="i4"
-                              name="RegCharity" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Auditor]"
-                              dataType="i4"
-                              name="Auditor" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[AwardOrgCode]"
-                              codePage="1252"
-                              dataType="str"
-                              length="20"
-                              name="AwardOrgCode" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[SecSkillsCoun]"
-                              dataType="i4"
-                              name="SecSkillsCoun" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[SectorLeadBody]"
-                              dataType="i4"
-                              name="SectorLeadBody" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Regulator]"
-                              dataType="i4"
-                              name="Regulator" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[HMPP]"
-                              dataType="i4"
-                              name="HMPP" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[DanceAndDramaIndicator]"
-                              dataType="i4"
-                              name="DanceAndDramaIndicator" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[DirectFundedEmpIndicator]"
-                              dataType="i4"
-                              name="DirectFundedEmpIndicator" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Comment]"
-                              codePage="1252"
-                              dataType="text"
-                              name="Comment" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Created_On]"
-                              dataType="dbTimeStamp"
-                              name="Created_On" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Created_By]"
-                              codePage="1252"
-                              dataType="str"
-                              length="100"
-                              name="Created_By" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Modified_On]"
-                              dataType="dbTimeStamp"
-                              name="Modified_On" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[Modified_By]"
-                              codePage="1252"
-                              dataType="str"
-                              length="100"
-                              name="Modified_By" />
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].ExternalColumns[HESAProvider]"
-                              dataType="bool"
-                              name="HESAProvider" />
-                          </externalMetadataColumns>
-                        </output>
-                        <output
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output]"
-                          isErrorOut="true"
-                          name="OLE DB Source Error Output">
-                          <outputColumns>
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                              dataType="i4"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                              name="ErrorCode"
-                              specialFlags="1" />
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                              dataType="i4"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                              name="ErrorColumn"
-                              specialFlags="2" />
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[UKPRN]"
-                              dataType="i8"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Error Output].Columns[UKPRN]"
-                              name="UKPRN" />
-                          </outputColumns>
-                          <externalMetadataColumns />
-                        </output>
-                      </outputs>
-                    </component>
-                    <component
-                      refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data"
-                      componentClassID="Microsoft.OLEDBDestination"
-                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-                      description="OLE DB Destination"
-                      name="Target Data"
-                      usesDispositions="true"
-                      version="4">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                          name="CommandTimeout">0</property>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the name of the database object used to open a rowset."
-                          name="OpenRowset">[Core].[ORG_SupersedingFrameworks]</property>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the variable that contains the name of the database object used to open a rowset."
-                          name="OpenRowsetVariable">User::StagingObjectName</property>
-                        <property
-                          dataType="System.String"
-                          description="The SQL command to be executed."
-                          name="SqlCommand"
-                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the column code page to use when code page information is unavailable from the data source."
-                          name="DefaultCodePage">1252</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Forces the use of the DefaultCodePage property value when describing character data."
-                          name="AlwaysUseDefaultCodePage">false</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the mode used to access the database."
-                          name="AccessMode"
-                          typeConverter="AccessMode">4</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                          name="FastLoadKeepIdentity">true</property>
-                        <property
-                          dataType="System.Boolean"
-                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                          name="FastLoadKeepNulls">true</property>
-                        <property
-                          dataType="System.String"
-                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
-                          name="FastLoadMaxInsertCommitSize">2147483647</property>
-                      </properties>
-                      <connections>
-                        <connection
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Target Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Target Connection Manager]"
-                          description="The OLE DB runtime connection used to access the database."
-                          name="OleDbConnection" />
-                      </connections>
-                      <inputs>
-                        <input
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input]"
-                          errorOrTruncationOperation="Insert"
-                          errorRowDisposition="FailComponent"
-                          hasSideEffects="true"
-                          name="OLE DB Destination Input">
-                          <inputColumns>
-                            <inputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input].Columns[UKPRN]"
-                              cachedDataType="i8"
-                              cachedName="UKPRN"
-                              externalMetadataColumnId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output].Columns[UKPRN]" />
-                          </inputColumns>
-                          <externalMetadataColumns
-                            isUsed="True">
-                            <externalMetadataColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input].ExternalColumns[UKPRN]"
-                              dataType="i8"
-                              name="UKPRN" />
-                          </externalMetadataColumns>
-                        </input>
-                      </inputs>
-                      <outputs>
-                        <output
-                          refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Outputs[OLE DB Destination Error Output]"
-                          exclusionGroup="1"
-                          isErrorOut="true"
-                          name="OLE DB Destination Error Output"
-                          synchronousInputId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input]">
-                          <outputColumns>
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                              dataType="i4"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
-                              name="ErrorCode"
-                              specialFlags="1" />
-                            <outputColumn
-                              refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                              dataType="i4"
-                              lineageId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
-                              name="ErrorColumn"
-                              specialFlags="2" />
-                          </outputColumns>
-                          <externalMetadataColumns />
-                        </output>
-                      </outputs>
-                    </component>
-                  </components>
-                  <paths>
-                    <path
-                      refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations.Paths[OLE DB Source Output]"
-                      endId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data.Inputs[OLE DB Destination Input]"
-                      name="OLE DB Source Output"
-                      startId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data.Outputs[OLE DB Source Output]" />
-                  </paths>
-                </pipeline>
-              </DTS:ObjectData>
-            </DTS:Executable>
-            <DTS:Executable
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
-              DTS:CreationName="Microsoft.ExecuteSQLTask"
-              DTS:Description="Execute SQL Task"
-              DTS:DTSID="{7254EC19-EBAF-4658-8607-474C0198C88B}"
-              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-              DTS:LocaleID="-1"
-              DTS:ObjectName="SQL - Clear Table - MasterOrganisations"
-              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="6">
-              <DTS:Variables>
-                <DTS:Variable
-                  DTS:CreationName=""
-                  DTS:DTSID="{9B987BDD-EB83-4DBD-94E4-D9F2E62AF227}"
-                  DTS:EvaluateAsExpression="True"
-                  DTS:Expression="&quot;TRUNCATE TABLE &quot; + @[User::StagingObjectName] + &quot;;&quot;"
-                  DTS:IncludeInDebugDump="2345"
-                  DTS:Namespace="User"
-                  DTS:ObjectName="SqlCommand">
-                  <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[MasterOrganisations];</DTS:VariableValue>
-                </DTS:Variable>
-              </DTS:Variables>
-              <DTS:PropertyExpression
-                DTS:Name="Name">LTRIM(RTRIM("SQL - Clear Table - " + @[User::Name]))</DTS:PropertyExpression>
-              <DTS:PropertyExpression
-                DTS:Name="SqlStatementSource">@[User::SqlCommand]</DTS:PropertyExpression>
-              <DTS:ObjectData>
-                <SQLTask:SqlTaskData
-                  SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[MasterOrganisations];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-              </DTS:ObjectData>
-            </DTS:Executable>
-          </DTS:Executables>
-          <DTS:PrecedenceConstraints>
-            <DTS:PrecedenceConstraint
-              DTS:refId="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations.PrecedenceConstraints[Constraint]"
-              DTS:CreationName=""
-              DTS:DTSID="{BE34C012-6F14-40E8-904A-3D15878F5D7C}"
-              DTS:From="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
-              DTS:LogicalAnd="True"
-              DTS:ObjectName="Constraint"
-              DTS:To="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations" />
           </DTS:PrecedenceConstraints>
         </DTS:Executable>
         <DTS:Executable
@@ -7448,8 +7306,8 @@ FROM
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -7861,7 +7719,7 @@ FROM
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - PartnerUKPRN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="4">
+              DTS:ThreadHint="1">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -7872,7 +7730,7 @@ FROM
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_PartnerUKPRN];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_PartnerUKPRN];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -7882,7 +7740,7 @@ FROM
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_PartnerUKPRN];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_PartnerUKPRN];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -8142,8 +8000,8 @@ FROM
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - UKPRN_UPIN\DFT - UKPRN_UPIN\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -8639,7 +8497,7 @@ FROM
               DTS:LocaleID="-1"
               DTS:ObjectName="SQL - Clear Table - UKPRN_UPIN"
               DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-              DTS:ThreadHint="7">
+              DTS:ThreadHint="0">
               <DTS:Variables>
                 <DTS:Variable
                   DTS:CreationName=""
@@ -8650,7 +8508,7 @@ FROM
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_UKPRN_UPIN];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_UKPRN_UPIN];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -8660,7 +8518,7 @@ FROM
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_UKPRN_UPIN];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_UKPRN_UPIN];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -9006,8 +8864,8 @@ FROM
                       <connections>
                         <connection
                           refId="Package\SEQ - Stage Data\SEQ - Stage - Version\DFT - Version\Source Data.Connections[OleDbConnection]"
-                          connectionManagerID="Package.ConnectionManagers[Source Connection Manager]"
-                          connectionManagerRefId="Package.ConnectionManagers[Source Connection Manager]"
+                          connectionManagerID="Package.ConnectionManagers[Source Organisations Connection Manager]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source Organisations Connection Manager]"
                           description="The OLE DB runtime connection used to access the database."
                           name="OleDbConnection" />
                       </connections>
@@ -9594,7 +9452,7 @@ FROM
                   DTS:Namespace="User"
                   DTS:ObjectName="SqlCommand">
                   <DTS:VariableValue
-                    DTS:DataType="8">DELETE FROM [Staging].[ORG_Version];</DTS:VariableValue>
+                    DTS:DataType="8">TRUNCATE TABLE [Staging].[ORG_Version];</DTS:VariableValue>
                 </DTS:Variable>
               </DTS:Variables>
               <DTS:PropertyExpression
@@ -9604,7 +9462,7 @@ FROM
               <DTS:ObjectData>
                 <SQLTask:SqlTaskData
                   SQLTask:Connection="{F21361EA-1800-44B7-9B2B-B8BF7A8C508E}"
-                  SQLTask:SqlStatementSource="DELETE FROM [Staging].[ORG_Version];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+                  SQLTask:SqlStatementSource="TRUNCATE TABLE [Staging].[ORG_Version];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
@@ -9700,6 +9558,43 @@ FROM
           Size="394,166"
           Id="Package\SEQ - Process Data"
           TopLeft="1484.19047619049,452.523809523811" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier"
+          TopLeft="35,74.5" />
+        <NodeLayout
+          Size="289,42"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\SQL - Clear Table - CampusIdentifier"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier.PrecedenceConstraints[Constraint]"
+          TopLeft="148.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27"
+              Start="0,0"
+              End="0,19.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="300,125"
+          Size="300,168"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier"
+          TopLeft="698,369" />
         <NodeLayout
           Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration"
@@ -9887,43 +9782,6 @@ FROM
           TopLeft="354.952380952381,188.476190476191" />
         <NodeLayout
           Size="224,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations"
-          TopLeft="35,74.5" />
-        <NodeLayout
-          Size="270,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\SQL - Clear Table - MasterOrganisations"
-          TopLeft="5.5,5.5" />
-        <EdgeLayout
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations.PrecedenceConstraints[Constraint]"
-          TopLeft="143.75,47.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,27"
-              Start="0,0"
-              End="0,19.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="300,123"
-          Size="300,166"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations"
-          TopLeft="696.666666666667,369.904761904762" />
-        <NodeLayout
-          Size="224,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - PartnerUKPRN\DFT - PartnerUKPRN"
           TopLeft="35,74.5" />
         <NodeLayout
@@ -10036,24 +9894,36 @@ FROM
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="1033,593"
-          Size="1033,636"
+          PanelSize="1063,620"
+          Size="1063,663"
           Id="Package\SEQ - Stage Data"
           TopLeft="301.000000000004,115.761904761906" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="1334,536.976190476192">
+          TopLeft="1364,556.428571428573">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="150.190476190483,0"
+              EndConnector="120.190476190486,-20.9047619047617"
               Start="0,0"
-              End="142.690476190483,0">
+              End="112.690476190486,-20.9047619047617">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="142.690476190483,0" />
+                    End="44.2498029606104,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="44.2498029606104,0"
+                    Point2="48.2498029606104,0"
+                    Point3="48.2498029606104,-4" />
+                  <mssgle:LineSegment
+                    End="48.2498029606104,-16.9047619047617" />
+                  <mssgle:CubicBezierSegment
+                    Point1="48.2498029606104,-16.9047619047617"
+                    Point2="48.2498029606104,-20.9047619047617"
+                    Point3="52.2498029606104,-20.9047619047617" />
+                  <mssgle:LineSegment
+                    End="112.690476190486,-20.9047619047617" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10068,26 +9938,26 @@ FROM
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-313.206349206361,96.1904761904765"
+              EndConnector="-283.206349206356,105.190476190477"
               Start="0,0"
-              End="-305.706349206361,96.1904761904765">
+              End="-275.706349206356,105.190476190477">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-183.452231582728,0" />
+                    End="-165.514724216504,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="-183.452231582728,0"
-                    Point2="-187.452231582728,0"
-                    Point3="-187.452231582728,4" />
+                    Point1="-165.514724216504,0"
+                    Point2="-169.514724216504,0"
+                    Point3="-169.514724216504,4" />
                   <mssgle:LineSegment
-                    End="-187.452231582728,92.1904761904765" />
+                    End="-169.514724216504,101.190476190477" />
                   <mssgle:CubicBezierSegment
-                    Point1="-187.452231582728,92.1904761904765"
-                    Point2="-187.452231582728,96.1904761904765"
-                    Point3="-191.452231582728,96.1904761904765" />
+                    Point1="-169.514724216504,101.190476190477"
+                    Point2="-169.514724216504,105.190476190477"
+                    Point3="-173.514724216504,105.190476190477" />
                   <mssgle:LineSegment
-                    End="-305.706349206361,96.1904761904765" />
+                    End="-275.706349206356,105.190476190477" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10121,6 +9991,86 @@ FROM
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,42"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data"
+          TopLeft="355,63" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data"
+          TopLeft="361,217" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Data Conversion"
+          TopLeft="344,128" />
+        <EdgeLayout
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier.Paths[OLE DB Source Output]"
+          TopLeft="422.5,105">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23"
+              Start="0,0"
+              End="0,15.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier.Paths[Data Conversion Output]"
+          TopLeft="425.25,170">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Source Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - CampusIdentifier\DFT - CampusIdentifier\Target Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - DataGeneration\DFT - DataGeneration">
     <LayoutInfo>
@@ -10221,7 +10171,7 @@ FROM
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="135,42"
           Id="Package\SEQ - Stage Data\SEQ - Stage - Details\DFT - Details\Target Data"
@@ -10253,9 +10203,7 @@ FROM
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10277,9 +10225,7 @@ FROM
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10559,79 +10505,6 @@ FROM
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\SEQ - Stage Data\SEQ - Stage - HMPP_UOP\DFT - HMPP_UOP\Target Data">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="136,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data"
-          TopLeft="355,63" />
-        <NodeLayout
-          Size="135,42"
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data"
-          TopLeft="364,256" />
-        <EdgeLayout
-          Id="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations.Paths[OLE DB Source Output]"
-          TopLeft="423,105">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="8.5,151"
-              Start="0,0"
-              End="8.5,143.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,71.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,71.5"
-                    Point2="0,75.5"
-                    Point3="4,75.5" />
-                  <mssgle:LineSegment
-                    End="4.5,75.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="4.5,75.5"
-                    Point2="8.5,75.5"
-                    Point3="8.5,79.5" />
-                  <mssgle:LineSegment
-                    End="8.5,143.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Source Data">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\SEQ - Stage Data\SEQ - Stage - MasterOrganisations\DFT - MasterOrganisations\Target Data">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
