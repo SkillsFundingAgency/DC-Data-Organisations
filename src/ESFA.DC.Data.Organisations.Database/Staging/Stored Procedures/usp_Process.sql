@@ -13,6 +13,7 @@ BEGIN
 			EXEC [Staging].[usp_Process_Org_HMPP_UOP];
 			EXEC [Staging].[usp_Process_Org_UKPRN_UPIN];
 			EXEC [Staging].[usp_Process_Org_PartnerUKPRN];
+			EXEC [Staging].[usp_Process_CampusIdentifier];
 
 			EXEC [Staging].[usp_Process_Version];
 			EXEC [Staging].[usp_Process_DataGeneration];
