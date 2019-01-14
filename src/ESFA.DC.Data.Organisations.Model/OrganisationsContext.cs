@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ESFA.DC.ReferenceData.FCS.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
     public partial class OrganisationsContext : DbContext
     {
@@ -15,23 +15,23 @@ namespace ESFA.DC.ReferenceData.FCS.Model
         {
         }
 
-        public virtual DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemoval { get; set; }
-        public virtual DbSet<MasterOrganisations> MasterOrganisations { get; set; }
-        public virtual DbSet<OrgDataGeneration> OrgDataGeneration { get; set; }
-        public virtual DbSet<OrgDetails> OrgDetails { get; set; }
-        public virtual DbSet<OrgFunding> OrgFunding { get; set; }
-        public virtual DbSet<OrgHmppPostcode> OrgHmppPostcode { get; set; }
-        public virtual DbSet<OrgHmppUop> OrgHmppUop { get; set; }
-        public virtual DbSet<OrgPartnerUkprn> OrgPartnerUkprn { get; set; }
-        public virtual DbSet<OrgUkprnUpin> OrgUkprnUpin { get; set; }
-        public virtual DbSet<OrgVersion> OrgVersion { get; set; }
+        public virtual DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemovals { get; set; }
+        public virtual DbSet<MasterOrganisation> MasterOrganisations { get; set; }
+        public virtual DbSet<OrgDataGeneration> OrgDataGenerations { get; set; }
+        public virtual DbSet<OrgDetail> OrgDetails { get; set; }
+        public virtual DbSet<OrgFunding> OrgFundings { get; set; }
+        public virtual DbSet<OrgHmppPostcode> OrgHmppPostcodes { get; set; }
+        public virtual DbSet<OrgHmppUop> OrgHmppUops { get; set; }
+        public virtual DbSet<OrgPartnerUkprn> OrgPartnerUkprns { get; set; }
+        public virtual DbSet<OrgUkprnUpin> OrgUkprnUpins { get; set; }
+        public virtual DbSet<OrgVersion> OrgVersions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(local);Database=Org;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\;Database=Org;Trusted_Connection=True;");
             }
         }
 
@@ -42,6 +42,8 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<ConditionOfFundingRemoval>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom });
+
+                entity.ToTable("ConditionOfFundingRemoval");
 
                 entity.Property(e => e.Ukprn).HasColumnName("UKPRN");
 
@@ -54,13 +56,13 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                 entity.Property(e => e.EffectiveTo).HasColumnType("date");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.ConditionOfFundingRemoval)
+                    .WithMany(p => p.ConditionOfFundingRemovals)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ConditionOfFundingRemoval_OrgDetails_UKPRN");
             });
 
-            modelBuilder.Entity<MasterOrganisations>(entity =>
+            modelBuilder.Entity<MasterOrganisation>(entity =>
             {
                 entity.HasKey(e => e.Ukprn);
 
@@ -92,10 +94,10 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                 entity.Property(e => e.Description).HasMaxLength(500);
             });
 
-            modelBuilder.Entity<OrgDetails>(entity =>
+            modelBuilder.Entity<OrgDetail>(entity =>
             {
                 entity.HasKey(e => e.Ukprn)
-                    .HasName("PK__Org_Deta__50F26B71D826990F");
+                    .HasName("PK__Org_Deta__50F26B7121D635DE");
 
                 entity.ToTable("Org_Details");
 
@@ -202,8 +204,8 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                 entity.Property(e => e.UklearnProv).HasColumnName("UKLearnProv");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithOne(p => p.OrgDetails)
-                    .HasForeignKey<OrgDetails>(d => d.Ukprn)
+                    .WithOne(p => p.OrgDetail)
+                    .HasForeignKey<OrgDetail>(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_Details_UKPRN");
             });
@@ -211,7 +213,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgFunding>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.FundingFactorType, e.FundingFactor, e.EffectiveFrom })
-                    .HasName("PK__Org_Fund__CB23E3DE22B59429");
+                    .HasName("PK__Org_Fund__CB23E3DECCCFA9DB");
 
                 entity.ToTable("Org_Funding");
 
@@ -256,7 +258,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                     .HasColumnType("datetime");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.OrgFunding)
+                    .WithMany(p => p.OrgFundings)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_Funding");
@@ -265,7 +267,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgHmppPostcode>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.HmpppostCode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__3BF64923149A3B7C");
+                    .HasName("PK__Org_HMPP__3BF649239C0E41DD");
 
                 entity.ToTable("Org_HMPP_Postcode");
 
@@ -298,7 +300,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                     .HasColumnType("datetime");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.OrgHmppPostcode)
+                    .WithMany(p => p.OrgHmppPostcodes)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_HMPP_Postcode");
@@ -307,7 +309,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgHmppUop>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Uopcode, e.EffectiveFrom })
-                    .HasName("PK__Org_HMPP__8CC5E974226ACDBC");
+                    .HasName("PK__Org_HMPP__8CC5E97464EF33F4");
 
                 entity.ToTable("Org_HMPP_UOP");
 
@@ -340,7 +342,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                     .HasColumnType("datetime");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.OrgHmppUop)
+                    .WithMany(p => p.OrgHmppUops)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_HMPP_UOP");
@@ -349,7 +351,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgPartnerUkprn>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.EffectiveFrom })
-                    .HasName("PK__Org_Part__175AE88065E0E4E2");
+                    .HasName("PK__Org_Part__175AE8809C165850");
 
                 entity.ToTable("Org_PartnerUKPRN");
 
@@ -382,7 +384,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                     .HasMaxLength(255);
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.OrgPartnerUkprn)
+                    .WithMany(p => p.OrgPartnerUkprns)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_PartnerUKPRN");
@@ -391,7 +393,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
             modelBuilder.Entity<OrgUkprnUpin>(entity =>
             {
                 entity.HasKey(e => new { e.Ukprn, e.Upin, e.EffectiveFrom })
-                    .HasName("PK__Org_UKPR__8FE295895901B725");
+                    .HasName("PK__Org_UKPR__8FE295893ADBB205");
 
                 entity.ToTable("Org_UKPRN_UPIN");
 
@@ -430,7 +432,7 @@ namespace ESFA.DC.ReferenceData.FCS.Model
                 entity.Property(e => e.StatusEffectiveTo).HasColumnType("date");
 
                 entity.HasOne(d => d.UkprnNavigation)
-                    .WithMany(p => p.OrgUkprnUpin)
+                    .WithMany(p => p.OrgUkprnUpins)
                     .HasForeignKey(d => d.Ukprn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Org_UKPRN_UPIN");

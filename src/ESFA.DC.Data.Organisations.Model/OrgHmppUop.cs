@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ESFA.DC.ReferenceData.FCS.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
-    public partial class OrgUkprnUpin
+    public partial class OrgHmppUop
     {
         public long Ukprn { get; set; }
-        public int Upin { get; set; }
-        public string Status { get; set; }
-        public DateTime StatusEffectiveFrom { get; set; }
-        public DateTime? StatusEffectiveTo { get; set; }
+        public string Uopcode { get; set; }
         public DateTime EffectiveFrom { get; set; }
         public DateTime? EffectiveTo { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -17,6 +14,6 @@ namespace ESFA.DC.ReferenceData.FCS.Model
         public DateTime ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
 
-        public virtual MasterOrganisations UkprnNavigation { get; set; }
+        public virtual MasterOrganisation UkprnNavigation { get; set; }
     }
 }

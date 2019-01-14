@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace ESFA.DC.Data.Organisations.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
-    public partial class OrgDetails
+    public partial class OrgDetail
     {
         public long Ukprn { get; set; }
         public string Name { get; set; }
@@ -70,6 +71,6 @@ namespace ESFA.DC.Data.Organisations.Model
         public string ModifiedBy { get; set; }
         public bool? Hesaprovider { get; set; }
 
-        public virtual MasterOrganisations UkprnNavigation { get; set; }
+        public virtual MasterOrganisation UkprnNavigation { get; set; }
     }
 }

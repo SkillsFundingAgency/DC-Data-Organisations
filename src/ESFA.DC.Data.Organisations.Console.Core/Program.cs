@@ -1,4 +1,4 @@
-﻿namespace ESFA.DC.ReferenceData.FCS.Model.App
+﻿namespace ESFA.DC.ReferenceData.Organisations.Console.Core.DesignTime
 {
     public static class Program
     {

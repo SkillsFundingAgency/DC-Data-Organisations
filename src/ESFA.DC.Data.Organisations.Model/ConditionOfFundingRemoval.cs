@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ESFA.DC.ReferenceData.FCS.Model
+namespace ESFA.DC.ReferenceData.Organisations.Model
 {
     public partial class ConditionOfFundingRemoval
     {
@@ -10,6 +10,6 @@ namespace ESFA.DC.ReferenceData.FCS.Model
         public DateTime EffectiveFrom { get; set; }
         public DateTime? EffectiveTo { get; set; }
 
-        public virtual MasterOrganisations UkprnNavigation { get; set; }
+        public virtual MasterOrganisation UkprnNavigation { get; set; }
     }
 }
