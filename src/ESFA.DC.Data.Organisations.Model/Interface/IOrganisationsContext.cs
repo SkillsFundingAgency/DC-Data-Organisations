@@ -8,6 +8,7 @@ namespace ESFA.DC.ReferenceData.Organisations.Model.Interface
 {
      public interface IOrganisationsContext
     {
+        DbSet<CampusIdentifier> CampusIdentifiers { get; set; }
         DbSet<ConditionOfFundingRemoval> ConditionOfFundingRemovals { get; set; }
         DbSet<MasterOrganisation> MasterOrganisations { get; set; }
         DbSet<OrgDataGeneration> OrgDataGenerations { get; set; }
