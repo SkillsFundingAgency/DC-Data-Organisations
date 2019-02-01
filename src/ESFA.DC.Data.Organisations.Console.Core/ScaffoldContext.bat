@@ -1,0 +1,2 @@
+dotnet.exe ef dbcontext scaffold "Server=.\;Database=Org;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -c OrganisationsContext --schema dbo --force --startup-project . --project ..\ESFA.DC.Data.Organisations.Model --verbose
+pause
